@@ -56,3 +56,6 @@ while True:
     elif selection == 7:
         print("Program Closed. Have a great day!")
         break
+
+    if input("\nWould you like to return to the menu?\nType 'no' to close the program: ").lower() == "no":
+        break
