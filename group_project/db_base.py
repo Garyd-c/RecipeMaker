@@ -33,9 +33,10 @@ class DBbase:
 """//////////////////////////////////   CREATE DB   ////////////////////////////////////////////"""
 
 class RecipeCreate(DBbase):
+    
 
     def __init__(self):
-        super().__init__("recipedb.sqlite")
+        super().__init__(self,self.db_name)
 
     def reset_database(self):
         sql = """
@@ -67,46 +68,46 @@ class RecipeCreate(DBbase):
 
 
 
-    def load_database(self,fname):
-        stuff = ET.parse(fname)
-        all_item = stuff.findall("dict/dict/dict")
-        print("Dict count:", len(all_item))
+#     def load_database(self,fname):
+#         stuff = ET.parse(fname)
+#         all_item = stuff.findall("dict/dict/dict")
+#         print("Dict count:", len(all_item))
 
-        for entry in all_item:
-            if func.lookup(entry,"Name") is None: continue
+#         for entry in all_item:
+#             if func.lookup(entry,"Name") is None: continue
 
-            name = func.lookup(entry,"Name")
-            artist = func.lookup(entry,"Artist")
-            album = func.lookup(entry,"Album")
-            count = func.lookup(entry,"Play Count")
-            rating = func.lookup(entry,"Rating")
-            length = func.lookup(entry,"Total Time")
+#             name = func.lookup(entry,"Name")
+#             artist = func.lookup(entry,"Artist")
+#             album = func.lookup(entry,"Album")
+#             count = func.lookup(entry,"Play Count")
+#             rating = func.lookup(entry,"Rating")
+#             length = func.lookup(entry,"Total Time")
 
-            if name is None or artist is None or album is None:
-                continue
+#             if name is None or artist is None or album is None:
+#                 continue
 
-            print(name, artist, album, count, rating, length)
+#             print(name, artist, album, count, rating, length)
 
-            cur = super().get_cursor
+#             cur = super().get_cursor
 
-            cur.execute('''INSERT OR IGNORE INTO Artist (name)
-                VALUES ( ? )''', (artist,))
+#             cur.execute('''INSERT OR IGNORE INTO Artist (name)
+#                 VALUES ( ? )''', (artist,))
 
-            cur.execute('SELECT id FROM Artist WHERE name = ? ', (artist,))
-            artist_id = cur.fetchone()[0]
+#             cur.execute('SELECT id FROM Artist WHERE name = ? ', (artist,))
+#             artist_id = cur.fetchone()[0]
 
-            cur.execute('''INSERT OR IGNORE INTO Album (title, artist_id)
-                VALUES ( ?, ? )''', (album, artist_id))
+#             cur.execute('''INSERT OR IGNORE INTO Album (title, artist_id)
+#                 VALUES ( ?, ? )''', (album, artist_id))
 
-            cur.execute('SELECT id FROM Album WHERE title = ? ', (album,))
-            album_id = cur.fetchone()[0]
+#             cur.execute('SELECT id FROM Album WHERE title = ? ', (album,))
+#             album_id = cur.fetchone()[0]
 
-            cur.execute('''INSERT OR REPLACE INTO Track
-                (title, album_id, len, rating, count)
-                VALUES ( ?, ?, ?, ?, ? )''',
-                        (name, album_id, length, rating, count))
+#             cur.execute('''INSERT OR REPLACE INTO Track
+#                 (title, album_id, len, rating, count)
+#                 VALUES ( ?, ?, ?, ?, ? )''',
+#                         (name, album_id, length, rating, count))
 
-            super().get_connection.commit()
+#             super().get_connection.commit()
 
 
 
