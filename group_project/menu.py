@@ -1,7 +1,5 @@
-import view_recipe as vr
-import update_recipe as ur
 import create_recipe as cr
-import delete_recipe as dr
+import classes as cl
 
 while True:
     selection = int(input("View your recipes here!\n"
@@ -18,21 +16,21 @@ while True:
 
     if selection == 1:
         # User view a list of the recipes
-        vr.View(0).lookUp()
+        cl.View(0).lookUp()
 
     elif selection == 2:
         # User selects recipe
         recipe_number = int(input("Enter the number of a recipe: "))
 
         # Recipe List is printed out
-        vr.View(recipe_number).recipeLookUp()
+        cl.View(recipe_number).recipeLookUp()
 
     elif selection == 3:
         # User selects recipe
         recipe_number = int(input("Enter the number of a recipe you would like to view: "))
 
         # Ingredient list for recipe is printed out
-        vr.View(recipe_number).ingredientLookUp()
+        cl.View(recipe_number).ingredientLookUp()
 
     elif selection == 4:
         # start function
@@ -43,17 +41,17 @@ while True:
         recipe_number = int(input("Enter the number of a recipe you would like to update: "))
 
         # Display options and user selects the part of the recipe to update
-        ur.Update(0,0).listPartNumbers()
+        cl.Update(0,0).listPartNumbers()
         recipe_part = int(input("Enter the number of the part of recipe you would like to update: "))
 
         # Initiate update recipe function
-        ur.Update(recipe_number,recipe_part).updateRecipe()
+        cl.Update(recipe_number,recipe_part).updateRecipe()
         pass
 
     elif selection == 6:
         # User selects recipe
         recipe_number = int(input("Enter the number of a recipe you would like to delete"))
-        dr.Delete(recipe_number).deleteRecipe()
+        cl.Delete(recipe_number).deleteRecipe()
 
     elif selection == 7:
         print("Program Closed. Have a great day!")
