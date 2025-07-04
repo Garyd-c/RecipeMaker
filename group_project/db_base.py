@@ -32,86 +32,43 @@ class DBbase:
 
 """//////////////////////////////////   CREATE DB   ////////////////////////////////////////////"""
 
-class RecipeCreate(DBbase):
-    
-
-    def __init__(self):
-        super().__init__(self,self.db_name)
+class RecipeDB(DBbase):
 
     def reset_database(self):
         sql = """
-            DROP TABLE IF EXISTS Recipe;
-            DROP TABLE IF EXISTS Ingredients;
-            DROP TABLE IF EXISTS Steps;
 
-            CREATE TABLE Recipe (
+            DROP TABLE IF EXISTS ingredients;
+            DROP TABLE IF EXISTS recipes;
+            DROP TABLE IF EXISTS steps;
+
+            CREATE TABLE recipes (
                 id  INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
-                name    TEXT,
+                name    TEXT NOT NULL,
                 description TEXT
             );
 
-            CREATE TABLE Ingredients (
+            CREATE TABLE ingredients (
                 id  INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
-                ingredient  TEXT,
+                recipe_id INTEGER,
+                ingredient  TEXT NOT NULL,
                 unit    TEXT,
-                unit_amount INTEGER
+                quantity INTEGER,
+                FOREIGN KEY (recipe_id) REFERENCES recipes(id)
             );
 
-            CREATE TABLE Steps (
+            CREATE TABLE steps (
                 id  INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
-                step_number INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
-                step TEXT
+                recipe_id INTEGER,
+                step_number INTEGER NOT NULL,
+                step TEXT,
+                FOREIGN KEY (recipe_id) REFERENCES recipes(id)
             ); """
 
-        super().execute_script(sql)
+        self.execute_script(sql)
+        print("Database has been reset.")
 
 
-
-
-#     def load_database(self,fname):
-#         stuff = ET.parse(fname)
-#         all_item = stuff.findall("dict/dict/dict")
-#         print("Dict count:", len(all_item))
-
-#         for entry in all_item:
-#             if func.lookup(entry,"Name") is None: continue
-
-#             name = func.lookup(entry,"Name")
-#             artist = func.lookup(entry,"Artist")
-#             album = func.lookup(entry,"Album")
-#             count = func.lookup(entry,"Play Count")
-#             rating = func.lookup(entry,"Rating")
-#             length = func.lookup(entry,"Total Time")
-
-#             if name is None or artist is None or album is None:
-#                 continue
-
-#             print(name, artist, album, count, rating, length)
-
-#             cur = super().get_cursor
-
-#             cur.execute('''INSERT OR IGNORE INTO Artist (name)
-#                 VALUES ( ? )''', (artist,))
-
-#             cur.execute('SELECT id FROM Artist WHERE name = ? ', (artist,))
-#             artist_id = cur.fetchone()[0]
-
-#             cur.execute('''INSERT OR IGNORE INTO Album (title, artist_id)
-#                 VALUES ( ?, ? )''', (album, artist_id))
-
-#             cur.execute('SELECT id FROM Album WHERE title = ? ', (album,))
-#             album_id = cur.fetchone()[0]
-
-#             cur.execute('''INSERT OR REPLACE INTO Track
-#                 (title, album_id, len, rating, count)
-#                 VALUES ( ?, ?, ?, ?, ? )''',
-#                         (name, album_id, length, rating, count))
-
-#             super().get_connection.commit()
-
-
-
-createSql = RecipeCreate()
-createSql.reset_database("recipedb.sqlite")
+createSql = RecipeDB("recipedb.sqlite")
+createSql.reset_database()
 createSql.close_db()
 print("Completed")
