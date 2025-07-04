@@ -1,5 +1,11 @@
 
 def newRecipe():
+    # Create a dictionary that holds:
+    # Recipe Name
+    # Recipe Description
+    # Recipe list with ingredients, units, and unit amounts
+    # Recipe steps
+    # Updata Database with new data
 
     # Define recipe as dictionary
     new_recipe = {}

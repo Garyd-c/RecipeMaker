@@ -1,3 +1,7 @@
+"""
+This file contains all the CRUD classes and functions to work with the database.
+"""
+
 """//////////////////////////////////////////////   VIEW   /////////////////////////////////////////////////////////////"""
 
 class View:
@@ -269,7 +273,10 @@ class Update:
         # Update recipe
         Update(self.recipe_number, 0).updateFile(
             input("Does this look correct?\nType 1 to confirm and update: "), data_list)
-        
+
+
+
+
 """/////////////////////////////////////    DELETE   ////////////////////////////////////////////"""
 
 
