@@ -16,10 +16,11 @@ while True:
 
 
         if selection == 1:
-            print("\nRecipe List:")
+            print("\nRecipe List"
+                "\n--------------")
             rl = func.RecipeList()
             for recipe in rl.fetch_recipe(None):
-                print(recipe)
+                print(recipe[0])
 
         elif selection == 2:
             # View a full recipe
