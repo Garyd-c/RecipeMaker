@@ -55,31 +55,31 @@ class Ingredient_list(db.DBbase):
         try:
             sql = """
 
-                DROP TABLE IF EXISTS ingredients;
-                DROP TABLE IF EXISTS recipes;
-                DROP TABLE IF EXISTS steps;
+                DROP TABLE IF EXISTS Steps;
+                DROP TABLE IF EXISTS Ingredients;
+                DROP TABLE IF EXISTS Recipes;
 
-                CREATE TABLE recipes (
-                    id  INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
-                    name    TEXT NOT NULL,
-                    description TEXT
+                CREATE TABLE Recipes (
+                    recipe_name TEXT PRIMARY KEY,
+                    description TEXT,
+                    category TEXT
                 );
 
-                CREATE TABLE ingredients (
-                    id  INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
-                    recipe_id INTEGER,
-                    ingredient  TEXT NOT NULL,
-                    unit    TEXT,
-                    quantity INTEGER,
-                    FOREIGN KEY (recipe_id) REFERENCES recipes(id)
+                CREATE TABLE Ingredients (
+                    ingredient_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    recipe_name TEXT,
+                    ingredient TEXT NOT NULL,
+                    unit TEXT,
+                    quantity REAL CHECK (quantity > 0),
+                    FOREIGN KEY (recipe_name) REFERENCES Recipes(recipe_name)
                 );
 
-                CREATE TABLE steps (
-                    id  INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
-                    recipe_id INTEGER,
-                    step_number INTEGER NOT NULL,
-                    step TEXT,
-                    FOREIGN KEY (recipe_id) REFERENCES recipes(id)
+                CREATE TABLE Steps (
+                    recipe_name TEXT,
+                    step_order INTEGER NOT NULL,
+                    step TEXT NOT NULL,
+                    PRIMARY KEY (recipe_name, step_order),
+                    FOREIGN KEY (recipe_name) REFERENCES Recipes(recipe_name)
                 ); """
             super().execute_script(sql)
         except Exception as e:
@@ -87,180 +87,3 @@ class Ingredient_list(db.DBbase):
         finally:
             super().close_db()
 
-
-
-class Ingredients(Recipes):
-
-    def add_inv(self, name, unit, qty):
-        try:
-            super().add(name)
-        except Exception as e:
-            print("An error occurred in the recipe class", e)
-        else:
-            try:
-                recipe_id = super().fetch(recipe_name=name)[0]
-                if recipe_id is not None:
-                    super().get_cursor.execute("""INSERT INTO ingredients (recipe_id, unit, quantity)
-                     VALUES (?,?,?);""", (recipe_id, unit, qty))
-                    super().get_connection.commit()
-                    print(f"Ingredient {name} added successfully")
-                else:
-                    raise Exception("The id of the ingredient name was not found")
-            except Exception as ex:
-                print("An error occured in the ingredients class.", ex)
-
-    def update_inv(self,id,qty,price):
-        try:
-            super().get_cursor.execute("""UPDATE ingredients SET unit = ?, quantity = ? WHERE id = ?;""",
-                                       (qty, price, id))
-            super().get_connection.commit()
-            print("Updated ingredients record successfully")
-            return True
-        except Exception as e:
-            print("An error occurred", e)
-            return False
-
-    def delete_inv(self, recipe_id):
-        try:
-            recipe_id = self.fetch_inv(recipe_id)[1]
-            if recipe_id is not None :
-                rsts = super().delete(recipe_id)
-                super().get_connection.commit()
-
-                if rsts == False:
-                    raise Exception("Delete method in recipe failed. Delete aborted.")
-
-        except Exception as e:
-            print("An error occurred", e)
-            return False
-        else:
-            try:
-                super().get_cursor.execute("DELETE FROM ingredients WHERE id = ?;", (recipe_id,))
-                super().get_connection.commit()
-                return True
-            except Exception as e:
-                print("An error occurred in ingredients delete", e)
-                return False
-
-    def fetch_inv(self, id=None):
-        try:
-            if id is not None:
-                retval = super().get_cursor.execute("""SELECT ingredients.id, r.name, recipe_id, ingredient, unit, quantity
-                FROM ingredients JOIN recipe p on ingredients.recipe_id = p.id
-                WHERE ingredients.id = ?;""", (id,)).fetchone()
-                return retval
-            else:
-                return super().get_cursor.execute("""SELECT ingredients.id, part_id, p.name, quantity, price
-                FROM ingredients JOIN parts p on ingredients.part_id = p.id;""").fetchall()
-
-        except Exception as e:
-            print("An error occurred", e)
-            return False
-
-    def reset_database(self):
-        try:
-            sql = """
-                DROP TABLE IF EXISTS ingredients;
-                
-                CREATE TABLE ingredients (
-                    id  INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
-                    recipe_id INTEGER,
-                    ingredient  TEXT NOT NULL,
-                    unit    TEXT,
-                    quantity INTEGER,
-                    FOREIGN KEY (recipe_id) REFERENCES recipes(id)
-                );
-            """
-            super().execute_script(sql)
-            print("Ingredient table successfully created")
-        except Exception as e:
-            print("An error occurred", e)
-        finally:
-            super().close_db()
-
-
-class Project:
-
-    def run(self):
-
-        inv_options = { "get": "Get all recipes",
-                        "getby": "Get recipes by Id",
-                        "update": "Update recipe",
-                        "add": "Add recipe",
-                        "delete": "Delete recipe",
-                        "reset": "Reset database",
-                        "exit": "Exit the program"
-                        }
-
-        print("Welcome to my inventory program, please choose a selection")
-        user_selection = str()
-        while user_selection != "exit":
-            print("*** Option List ***")
-            for option in inv_options.items():
-                print(option)
-
-            user_selection = input("Select an option: ").lower()
-            ingredients = Ingredients()
-
-            if user_selection == "get":
-                results = ingredients.fetch_inv()
-                for item in results:
-                    print(item)
-                input("Press return to continue")
-
-            elif user_selection == "getby":
-                inv_id = input("Enter Ingredient Id: ")
-                results = ingredients.fetch_inv(inv_id)
-                print(results)
-                input("Press return to continue")
-
-            elif user_selection == "update":
-                results = ingredients.fetch_inv()
-                for item in results:
-                    print(item)
-
-                recipe_id = input("Enter Recipe Id: ")
-                unit = input("Enter unit measurment: ")
-                qty = input("Enter unit amount: ")
-                ingredients.update_inv(recipe_id, unit, qty)
-                print(ingredients.fetch_inv(inv_id))
-                input("Press return to continue")
-
-
-            elif user_selection == "add":
-                name = input("Enter ingredient name: ")
-                unit = input("Enter unit measurment: ")
-                qty = input("Enter unit amount: ")
-                ingredients.add_inv(name, unit, qty)
-                print("Done\n")
-                input("Press return to continue")
-
-
-            elif user_selection == "delete":
-                inv_id = input("Enter Ingredient Id: ")
-                ingredients.delete_inv(inv_id)
-                print("Done\n")
-                input("Press return to continue")
-
-
-            elif user_selection == "reset":
-                confirm = input("This will delete all records in recipes and ingredients, continue? (y/n) ").lower()
-                if (confirm == "y"):
-                    ingredients.reset_database()
-                    recipes = Recipes()
-                    recipes.reset_database()
-                    print("Reset complete")
-                    input("Press return to continue")
-
-                else:
-                    print("Reset aborted")
-                    input("Press return to continue")
-
-
-            else:
-                if user_selection != "exit":
-                    print("Invalid selection, please try again\n")
-
-
-project = Project()
-project.run()
