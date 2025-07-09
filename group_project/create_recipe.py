@@ -21,7 +21,7 @@ def newRecipe():
 
     while True:
         item = input("What is the ingredient? ")
-        if item.lower() == "q":
+        if item.lower() == "done":
             new_recipe["ingredients"] = new_item1
             new_recipe["units"] = new_item2
             new_recipe["unit_amount"] = new_item3
@@ -29,7 +29,7 @@ def newRecipe():
         else:
             new_item1.append(item)
         item = input("What unit do you use for measurement (for example: cup, liter, tbsp)? ")
-        if item.lower() == "q":
+        if item.lower() == "done":
             new_recipe["ingredients"] = new_item1
             new_recipe["units"] = new_item2
             new_recipe["unit_amount"] = new_item3
@@ -37,15 +37,15 @@ def newRecipe():
         else:
             new_item2.append(item)
         item = input(f"How much should be added? ")
-        if item.lower() == "q":
+        if item.lower() == "done":
             new_recipe["ingredients"] = new_item1
             new_recipe["units"] = new_item2
             new_recipe["unit_amount"] = new_item3
             break
         else:
             new_item3.append(item)
-        item = input(f"Do you want to add another ingredient?\nType 'q' to describe the steps: ")
-        if item.lower() == "q":
+        item = input(f"Do you want to add another ingredient?\nType 'done' to describe the steps: ")
+        if item.lower() == "done":
             new_recipe["ingredients"] = new_item1
             new_recipe["units"] = new_item2
             new_recipe["unit_amount"] = new_item3
@@ -60,14 +60,14 @@ def newRecipe():
 
     while True:
         item = input(f"What is step #{step_number}? ")
-        if item.lower() == "q":
+        if item.lower() == "done":
             new_recipe["step"] = step
             break
         else:
             step.append(item)
             step_number += 1
-        item = input(f"\nWould you like to continue?\nType 'q' to complete recipe: ")
-        if item.lower() == "q":
+        item = input(f"\nWould you like to continue?\nType 'done' to complete recipe: ")
+        if item.lower() == "done":
             new_recipe["step"] = step
             break
         else:

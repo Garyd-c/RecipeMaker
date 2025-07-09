@@ -1,11 +1,36 @@
 import db_base as db
 
-class Recipes(db.DBbase):
+class Ingredient_list(db.DBbase):
 
     def __init__(self):
         super().__init__("recipedb.sqlite")
 
-    def update(self, recipe_id, name):
+# Create
+    # 1. Pull ingredients_id
+    def add_ing(self,recipe_name,ingredient,unit,quantity):
+        try:
+
+            super().get_cursor.execute("INSERT OR IGNORE INTO Ingredients (recipe_name, ingredient, unit, quantity) values(?,?,?,?);", (recipe_name,ingredient,unit,quantity))
+            super().get_connection.commit()
+            print(f"Add {ingredient} successfully")
+        except Exception as e:
+            print("An error has occurred.", e)
+
+# Retrieve
+    def fetch_ing(self, id=None, recipe_name=None):
+        try:
+            if id is not None:
+                return super().get_cursor.execute("SELECT * FROM Recipe WHERE id = ?;", (id,)).fetchone()
+            elif recipe_name is not None:
+                return super().get_cursor.execute("SELECT * FROM Recipe WHERE name = ?;", (recipe_name,)).fetchone()
+            else:
+                return super().get_cursor.execute("SELECT * FROM recipe;").fetchall()
+        except Exception as e:
+            print("An error has occurred.", e)
+            return False
+
+# Update
+    def update_ing(self, recipe_id, name):
         try:
             super().get_cursor.execute("update recipe set name = ? where id = ?;", (name, recipe_id))
             super().get_connection.commit()
@@ -13,15 +38,8 @@ class Recipes(db.DBbase):
         except Exception as e:
             print("An error has occurred.", e)
 
-    def add(self, name):
-        try:
-            super().get_cursor.execute("insert or ignore into recipe (name) values(?);", (name,))
-            super().get_connection.commit()
-            print(f"Add {name} successfully")
-        except Exception as e:
-            print("An error has occurred.", e)
-
-    def delete(self, recipe_id):
+# Delete
+    def delete_ing(self, recipe_id):
         try:
             super().get_cursor.execute("DELETE FROM recipe WHERE id = ?;", (recipe_id,))
             super().get_connection.commit()
@@ -31,19 +49,9 @@ class Recipes(db.DBbase):
             print("An error has occurred.", e)
             return False
 
-    def fetch(self, id=None, recipe_name=None):
-        try:
-            if id is not None:
-                return super().get_cursor.execute("SELECT * FROM recipe WHERE id = ?;", (id,)).fetchone()
-            elif recipe_name is not None:
-                return super().get_cursor.execute("SELECT * FROM recipe WHERE name = ?;", (recipe_name,)).fetchone()
-            else:
-                return super().get_cursor.execute("SELECT * FROM recipe;").fetchall()
-        except Exception as e:
-            print("An error has occurred.", e)
-            return False
+# Reset
 
-    def reset_database(self):
+    def reset_database_ing(self):
         try:
             sql = """
 

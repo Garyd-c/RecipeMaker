@@ -4,6 +4,14 @@ This file contains all the CRUD classes and functions to work with the database.
 
 """//////////////////////////////////////////////   VIEW   /////////////////////////////////////////////////////////////"""
 
+recipe_id_name = "test"
+recipe_id_number = "1"
+recipe_id = "".join(str(recipe_id_name) + str(recipe_id_number).rjust((5 - len(recipe_id_number)),"0"))
+print(recipe_id)
+
+
+
+"""
 class View:
     # View list of recipes
     # View full recipe
@@ -59,7 +67,8 @@ class View:
             print(item)
 
 
-"""/////////////////////////////////////////////////  UPDATE  ///////////////////////////////////////////////////////////////"""
+"""#/////////////////////////////////////////////////  UPDATE  ///////////////////////////////////////////////////////////////#
+"""
 
 class Update:
     # What recipe would you like to update?
@@ -277,7 +286,8 @@ class Update:
 
 
 
-"""/////////////////////////////////////    DELETE   ////////////////////////////////////////////"""
+"""#/////////////////////////////////////    DELETE   ////////////////////////////////////////////#
+"""
 
 
 class Delete:
@@ -312,3 +322,4 @@ class Delete:
                              f"Type 1 to confirm and update: ")
 
         self.updateFile(int(confirmation),data_list)
+"""
