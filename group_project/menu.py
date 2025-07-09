@@ -1,5 +1,4 @@
-import create_recipe as cr
-import classes as cl
+import functions as func
 
 while True:
     selection = int(input("View your recipes here!\n"
@@ -16,14 +15,14 @@ while True:
 
     if selection == 1:
         # User view a list of the recipes
-        cl.View(0).lookUp()
+        func.RecipeList.fetch_recipe(None)
 
     elif selection == 2:
         # User selects recipe
         recipe_number = int(input("Enter the number of a recipe: "))
 
         # Recipe List is printed out
-        cl.View(recipe_number).recipeLookUp()
+        func.RecipeList.fetch_recipe(None)
 
     elif selection == 3:
         # User selects recipe

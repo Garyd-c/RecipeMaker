@@ -122,7 +122,7 @@ class StepsList(db.DBbase):
         super().__init__("recipedb.sqlite")
 
 # Create
-    def add_ing(self,recipe_name,step):
+    def add_steps(self,recipe_name,step):
         try:
             # Determine the step order for the recipe
 
@@ -144,51 +144,59 @@ class StepsList(db.DBbase):
             print("An error has occurred.", e)
 
 # Retrieve
-    def fetch_ing(self, ingredient_id=None, recipe_name=None):
+    def fetch_steps(self, recipe_name=None, step_order=None):
+        if step_order <= 0:
+            raise ValueError("Step must be a number more than 0.")
         try:
-            # View an individual step:
+            # View an individual step of a recipe:
 
-            if ingredient_id is not None:
-                return super().get_cursor.execute("SELECT * FROM Ingredients WHERE ingredient_id = ?;", (ingredient_id,)).fetchone()
+            if recipe_name is not None and step_order is not None:
+                return super().get_cursor.execute("SELECT * FROM Steps WHERE recipe_name = ? AND step_order = ?;", (recipe_name,step_order)).fetchone()
             
             # View the list of recipe steps:
 
             elif recipe_name is not None:
-                return super().get_cursor.execute("SELECT * FROM Ingredients WHERE recipe_name = ?;", (recipe_name,)).fetchall()
+                return super().get_cursor.execute("SELECT * FROM Steps WHERE recipe_name = ?;", (recipe_name,)).fetchall()
             
-            # View the full DB of ingredients
+            # View the full DB of steps
 
             else:
-                return super().get_cursor.execute("SELECT * FROM Ingredients;").fetchall()
+                return super().get_cursor.execute("SELECT * FROM Steps;").fetchall()
 
         except Exception as e:
             print("An error has occurred.", e)
             return False
 
-# Update
-    def update_ing(self, ingredient_id, recipe_name):
-        try:
-            super().get_cursor.execute("UPDATE Ingredients SET recipe_name = ? where id = ?;", (ingredient_id, recipe_name))
-            super().get_connection.commit()
-            print(f"Update record to  {recipe_name} success!")
-        except Exception as e:
-            print("An error has occurred.", e)
+# # Update
+#     def update_steps(self, ingredient_id, recipe_name):
+#         try:
+#             super().get_cursor.execute("UPDATE Ingredients SET recipe_name = ? where id = ?;", (ingredient_id, recipe_name))
+#             super().get_connection.commit()
+#             print(f"Update record to  {recipe_name} success!")
+#         except Exception as e:
+#             print("An error has occurred.", e)
 
 # Delete
-    def delete_ing(self, ingredient_id=None, recipe_name=None):
+    def delete_steps(self, recipe_name=None, step_order=None):
         try:
-            
-            # Delete an individual ingredient:
+            # Delete an individual step of a recipe:
 
-            if ingredient_id is not None:
-                super().get_cursor.execute("DELETE FROM Ingredients WHERE ingredient_id = ?;", (ingredient_id,))
-                print(f"Deleted ingredient id: {ingredient_id} successfully")
+            if recipe_name is not None and step_order is not None:
+                super().get_cursor.execute("DELETE FROM Steps WHERE recipe_name = ? AND step_order = ?;", (recipe_name,step_order)).fetchone()
+                print(f"Deleted step: {step_order} from {recipe_name} successfully")
 
-            # Delete a full recipe ingredient list:
+            # Delete the list of recipe steps:
 
             elif recipe_name is not None:
-                super().get_cursor.execute("DELETE FROM Ingredients WHERE recipe_name = ?;", (recipe_name,))
-                print(f"Deleted {recipe_name} ingredients successfully")
+                super().get_cursor.execute("DELETE FROM Steps WHERE recipe_name = ?;", (recipe_name,)).fetchall()
+                print(f"Deleted steps for {recipe_name} successfully")
+
+            # View the full DB of steps
+
+            else:
+                super().get_cursor.execute("DELETE FROM Steps;").fetchall()
+                print(f"Deleted all recipe steps successfully")
+
             
             # Save to DB
 
@@ -201,7 +209,7 @@ class StepsList(db.DBbase):
 
 # Reset
 
-    def reset_database_ing(self):
+    def reset_database_steps(self):
         try:
             sql = """
 
@@ -232,86 +240,73 @@ class RecipeList(db.DBbase):
         super().__init__("recipedb.sqlite")
 
 # Create
-    def add_ing(self,recipe_name,step):
+    def add_recipe(self,recipe_name,description,category):
         try:
-            # Determine the step order for the recipe
+            # Add new recipe
 
-            last_step = super().get_cursor.execute("SELECT MAX(step_order) FROM Steps WHERE recipe_name = ?;", (recipe_name,)).fetchone()[0]
-            if last_step == None:
-                step_order = 1
-            else:
-                step_order = int(last_step) + 1
-
-            # Add new step
-
-            super().get_cursor.execute("INSERT INTO Steps (recipe_name,step_order,step) values(?,?,?);", (recipe_name,step_order,step))
+            super().get_cursor.execute("INSERT INTO Steps (recipe_name,description,category) values(?,?,?);", (recipe_name,description,category))
 
             # Save to DB
 
             super().get_connection.commit()
-            print(f"Added {step} successfully")
+            print(f"Added {recipe_name} successfully")
         except Exception as e:
             print("An error has occurred.", e)
 
 # Retrieve
-    def fetch_ing(self, ingredient_id=None, recipe_name=None):
-        try:
-            # View an individual step:
-
-            if ingredient_id is not None:
-                return super().get_cursor.execute("SELECT * FROM Ingredients WHERE ingredient_id = ?;", (ingredient_id,)).fetchone()
-            
+    def fetch_recipe(self, recipe_name=None):
+        try:        
             # View the list of recipe steps:
 
-            elif recipe_name is not None:
-                return super().get_cursor.execute("SELECT * FROM Ingredients WHERE recipe_name = ?;", (recipe_name,)).fetchall()
+            if recipe_name is not None:
+                return super().get_cursor.execute("SELECT * FROM Recipe WHERE recipe_name = ?;", (recipe_name,)).fetchall()
             
             # View the full DB of ingredients
 
             else:
-                return super().get_cursor.execute("SELECT * FROM Ingredients;").fetchall()
+                return super().get_cursor.execute("SELECT * FROM Recipe;").fetchall()
 
         except Exception as e:
             print("An error has occurred.", e)
             return False
 
-# Update
-    def update_ing(self, ingredient_id, recipe_name):
-        try:
-            super().get_cursor.execute("UPDATE Ingredients SET recipe_name = ? where id = ?;", (ingredient_id, recipe_name))
-            super().get_connection.commit()
-            print(f"Update record to  {recipe_name} success!")
-        except Exception as e:
-            print("An error has occurred.", e)
+# # Update
+#     def update_recipe(self, ingredient_id, recipe_name):
+#         try:
+#             super().get_cursor.execute("UPDATE Ingredients SET recipe_name = ? where id = ?;", (ingredient_id, recipe_name))
+#             super().get_connection.commit()
+#             print(f"Update record to  {recipe_name} success!")
+#         except Exception as e:
+#             print("An error has occurred.", e)
 
-# Delete
-    def delete_ing(self, ingredient_id=None, recipe_name=None):
-        try:
+# # Delete
+#     def delete_recipe(self, ingredient_id=None, recipe_name=None):
+#         try:
             
-            # Delete an individual ingredient:
+#             # Delete an individual ingredient:
 
-            if ingredient_id is not None:
-                super().get_cursor.execute("DELETE FROM Ingredients WHERE ingredient_id = ?;", (ingredient_id,))
-                print(f"Deleted ingredient id: {ingredient_id} successfully")
+#             if ingredient_id is not None:
+#                 super().get_cursor.execute("DELETE FROM Ingredients WHERE ingredient_id = ?;", (ingredient_id,))
+#                 print(f"Deleted ingredient id: {ingredient_id} successfully")
 
-            # Delete a full recipe ingredient list:
+#             # Delete a full recipe ingredient list:
 
-            elif recipe_name is not None:
-                super().get_cursor.execute("DELETE FROM Ingredients WHERE recipe_name = ?;", (recipe_name,))
-                print(f"Deleted {recipe_name} ingredients successfully")
+#             elif recipe_name is not None:
+#                 super().get_cursor.execute("DELETE FROM Ingredients WHERE recipe_name = ?;", (recipe_name,))
+#                 print(f"Deleted {recipe_name} ingredients successfully")
             
-            # Save to DB
+#             # Save to DB
 
-            super().get_connection.commit()
-            return True
+#             super().get_connection.commit()
+#             return True
         
-        except Exception as e:
-            print("An error has occurred.", e)
-            return False
+#         except Exception as e:
+#             print("An error has occurred.", e)
+#             return False
 
 # Reset
 
-    def reset_database_ing(self):
+    def reset_database_recipe(self):
         try:
             sql = """
 
