@@ -10,13 +10,16 @@ while True:
                             "4  Create new recipe\n"
                             "5  Update a recipe\n"
                             "6  Delete a recipe\n"
-                            "7  Close program\n\n"
+                            "7  Reset Database\n"
+                            "8  Close program\n\n"
                             "What would you like to do? "))
 
 
         if selection == 1:
-            # View recipe List
-            pass
+            print("\nRecipe List:")
+            rl = func.RecipeList()
+            for recipe in rl.fetch_recipe(None):
+                print(recipe)
 
         elif selection == 2:
             # View a full recipe
@@ -38,7 +41,11 @@ while True:
             # Delete a recipe
             pass
 
-        elif selection == 7:
+        elif selection == 6:
+            # Reset Database
+            pass
+
+        elif selection == 8:
             print("Program Closed. Have a great day!")
             break
 

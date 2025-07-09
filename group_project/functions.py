@@ -244,7 +244,7 @@ class RecipeList(db.DBbase):
         try:
             # Add new recipe
 
-            super().get_cursor.execute("INSERT INTO Steps (recipe_name,description,category) values(?,?,?);", (recipe_name,description,category))
+            super().get_cursor.execute("INSERT INTO Recipes (recipe_name,description,category) values(?,?,?);", (recipe_name,description,category))
 
             # Save to DB
 
@@ -259,12 +259,12 @@ class RecipeList(db.DBbase):
             # View the list of recipe steps:
 
             if recipe_name is not None:
-                return super().get_cursor.execute("SELECT * FROM Recipe WHERE recipe_name = ?;", (recipe_name,)).fetchall()
+                return super().get_cursor.execute("SELECT * FROM Recipes WHERE recipe_name = ?;", (recipe_name,)).fetchall()
             
             # View the full DB of ingredients
 
             else:
-                return super().get_cursor.execute("SELECT * FROM Recipe;").fetchall()
+                return super().get_cursor.execute("SELECT * FROM Recipes;").fetchall()
 
         except Exception as e:
             print("An error has occurred.", e)
@@ -341,3 +341,6 @@ class RecipeList(db.DBbase):
             print("An error occured.", e)
         finally:
             super().close_db()
+
+# rl = RecipeList()
+# rl.
