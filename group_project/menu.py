@@ -14,47 +14,31 @@ while True:
 
 
     if selection == 1:
-        # User view a list of the recipes
-        func.RecipeList.fetch_recipe(None)
+        # View recipe List
+        pass
 
     elif selection == 2:
-        # User selects recipe
-        recipe_number = int(input("Enter the number of a recipe: "))
-
-        # Recipe List is printed out
-        func.RecipeList.fetch_recipe(None)
+        # View a full recipe
+        pass
 
     elif selection == 3:
-        # User selects recipe
-        recipe_number = int(input("Enter the number of a recipe you would like to view: "))
-
-        # Ingredient list for recipe is printed out
-        cl.View(recipe_number).ingredientLookUp()
+        # View the ingredient list for a recipe
+        pass
 
     elif selection == 4:
-        # start function
-        cr.newRecipe()
+        # Create new recipe
+        pass
 
     elif selection == 5:
-        # User selects recipe
-        recipe_number = int(input("Enter the number of a recipe you would like to update: "))
-
-        # Display options and user selects the part of the recipe to update
-        cl.Update(0,0).listPartNumbers()
-        recipe_part = int(input("Enter the number of the part of recipe you would like to update: "))
-
-        # Initiate update recipe function
-        cl.Update(recipe_number,recipe_part).updateRecipe()
+        # Update a recipe
         pass
 
     elif selection == 6:
-        # User selects recipe
-        recipe_number = int(input("Enter the number of a recipe you would like to delete"))
-        cl.Delete(recipe_number).deleteRecipe()
+        # Delete a recipe
+        pass
 
     elif selection == 7:
         print("Program Closed. Have a great day!")
         break
 
-    if input("\nWould you like to return to the menu?\nType 'no' to close the program: ").lower() == "no":
-        break
+    input("\nPress 'Enter' to return to menu")
