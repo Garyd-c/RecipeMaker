@@ -12,7 +12,7 @@ class IngredientList(db.DBbase):
 
 # Create
     def add_ing(self,recipe_name,ingredient,unit=None,quantity=1):
-        if quantity <= 0:
+        if quantity is not None and quantity <= 0:
             raise ValueError("Quantity must be greater than 0.")
         try:
             super().get_cursor.execute("INSERT OR IGNORE INTO Ingredients (recipe_name,ingredient,unit,quantity) values(?,?,?,?);", (recipe_name,ingredient,unit,quantity))
@@ -22,7 +22,7 @@ class IngredientList(db.DBbase):
             print("An error has occurred.", e)
 
 # Retrieve
-    def fetch_ing(self, ingredient_id=None, recipe_name=None):
+    def fetch_ing(self, recipe_name=None, ingredient_id=None):
         try:
             # View an individual ingredient:
 
@@ -133,7 +133,7 @@ class StepsList(db.DBbase):
 
 # Retrieve
     def fetch_steps(self, recipe_name=None, step_order=None):
-        if step_order <= 0:
+        if step_order is not None and step_order <= 0:
             raise ValueError("Step must be a number more than 0.")
         try:
             # View an individual step of a recipe:
