@@ -14,17 +14,24 @@ while True:
                             "8  Close program\n\n"
                             "What would you like to do? "))
 
+        rl = func.RecipeList()
+        il = func.IngredientList()
+        sl = func.StepsList()
 
         if selection == 1:
+            #View recipe List
+
             print("\nRecipe List"
                 "\n--------------")
-            rl = func.RecipeList()
+
             for recipe in rl.fetch_recipe(None):
                 print(recipe[0])
+
 
         elif selection == 2:
             # View a full recipe
             pass
+
 
         elif selection == 3:
             # View the ingredient list for a recipe
@@ -40,11 +47,35 @@ while True:
 
         elif selection == 6:
             # Delete a recipe
-            pass
+            rname = input("What is the name of the recipe you would like to delete? ")
+            confirmation = input(f"Are you sure you would like to delete {rname}?\nType 'y' for yes 'n' for no, then press enter (y/n): ").lower()
+            if confirmation == "y":
+                rl.delete_recipe(rname)
+            else:
+                print("Delete request aborted.")
 
-        elif selection == 6:
+        elif selection == 7:
             # Reset Database
-            pass
+            while True:
+                confirmation1 = input(f"Reseting the database will delete all recipes.\nType 'y' to continue or 'n' to abort, then press enter (y/n): ").lower()
+                if confirmation1 == "y":
+                    while True:
+                        confirmation2 = input(f"Reset Database?\nType 'y' to confirm 'n' to abort, then press enter (y/n): ").lower()
+                        if confirmation2 == "y":
+                            rl.reset_database_recipe()
+                            break
+                        elif confirmation2 == "n":
+                            print("Reset request aborted.")
+                            break
+                        else:
+                            print("Please type 'y' or 'n'")
+                    break        
+                elif confirmation1 == "n":
+                    print("Reset request aborted.")
+                    break
+                else:
+                    print("Please type 'y' or 'n'")
+
 
         elif selection == 8:
             print("Program Closed. Have a great day!")

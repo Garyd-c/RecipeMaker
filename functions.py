@@ -17,7 +17,7 @@ class IngredientList(db.DBbase):
         try:
             super().get_cursor.execute("INSERT OR IGNORE INTO Ingredients (recipe_name,ingredient,unit,quantity) values(?,?,?,?);", (recipe_name,ingredient,unit,quantity))
             super().get_connection.commit()
-            print(f"Add {ingredient} successfully")
+            print(f"Added {ingredient} to {recipe_name} successfully")
         except Exception as e:
             print("An error has occurred.", e)
 
@@ -53,7 +53,7 @@ class IngredientList(db.DBbase):
 #             print("An error has occurred.", e)
 
 # Delete
-    def delete_ing(self, ingredient_id=None, recipe_name=None):
+    def delete_ing(self, recipe_name=None, ingredient_id=None):
         try:
             
             # Delete an individual ingredient:
@@ -99,18 +99,6 @@ class IngredientList(db.DBbase):
         finally:
             super().close_db()
 
-
-
-# ing_list = IngredientList()
-# ing_list.add_ing("Hot Sauce","Water","Cup",2)
-# ing_list.add_ing("Hot Sauce","Peppers",None,2)
-# ing_list.add_ing("gravy","burnaise","packets",1)
-
-# print(ing_list.fetch_ing(None,None))
-
-# ing_list.delete_ing(None,"Hot Sauce")
-
-# print(ing_list.fetch_ing(None,None))
 
 
 #///////////////////////////////// Steps Class ///////////////////////////////////////#
@@ -279,30 +267,34 @@ class RecipeList(db.DBbase):
 #         except Exception as e:
 #             print("An error has occurred.", e)
 
-# # Delete
-#     def delete_recipe(self, ingredient_id=None, recipe_name=None):
-#         try:
+# Delete
+    def delete_recipe(self, recipe_name):
+        try:
+            # Delete a full recipe:
+
+            # 1 Delete Steps table
+
+            steps = StepsList()
+            steps.delete_steps(recipe_name,None)
+
+            # 2 Delete Ingredients table
+
+            ing = IngredientList()
+            ing.delete_ing(recipe_name,None)
+
+            # 3 Delete Recipe Table
+
+            super().get_cursor.execute("DELETE FROM Recipes WHERE recipe_name = ?;", (recipe_name,))
+            print(f"Deleted {recipe_name} successfully")
             
-#             # Delete an individual ingredient:
+            # Save to DB
 
-#             if ingredient_id is not None:
-#                 super().get_cursor.execute("DELETE FROM Ingredients WHERE ingredient_id = ?;", (ingredient_id,))
-#                 print(f"Deleted ingredient id: {ingredient_id} successfully")
-
-#             # Delete a full recipe ingredient list:
-
-#             elif recipe_name is not None:
-#                 super().get_cursor.execute("DELETE FROM Ingredients WHERE recipe_name = ?;", (recipe_name,))
-#                 print(f"Deleted {recipe_name} ingredients successfully")
-            
-#             # Save to DB
-
-#             super().get_connection.commit()
-#             return True
+            super().get_connection.commit()
+            return True
         
-#         except Exception as e:
-#             print("An error has occurred.", e)
-#             return False
+        except Exception as e:
+            print("An error has occurred.", e)
+            return False
 
 # Reset
 
@@ -337,10 +329,9 @@ class RecipeList(db.DBbase):
                     FOREIGN KEY (recipe_name) REFERENCES Recipes(recipe_name)
                 ); """
             super().execute_script(sql)
+            print("The database has been reset.")
         except Exception as e:
             print("An error occured.", e)
         finally:
             super().close_db()
 
-# rl = RecipeList()
-# rl.
