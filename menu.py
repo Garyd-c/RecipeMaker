@@ -4,7 +4,7 @@ while True:
     try:    
         selection = int(input("View your recipes here!\n"
                             "Enter a number from the list below:\n\n"
-                            "1  View recipe List\n"
+                            "1  View recipe List\n" # View Recipe by category
                             "2  View a full recipe\n"
                             "3  View the ingredient list for a recipe\n"
                             "4  Create new recipe\n"
@@ -132,6 +132,6 @@ while True:
     except Exception as e:
             print("An error has occurred.", e)
 
-
+# Restart menu
     input("\nPress 'Enter' to return to menu")
     
