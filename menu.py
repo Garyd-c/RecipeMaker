@@ -7,7 +7,6 @@ Full Menu with menu options
 while loop to return to menu after each option is selected.
 """
 
-
 while True:
     try:    
         selection = int(input("View your recipes here!\n"

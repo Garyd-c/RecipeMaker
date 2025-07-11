@@ -9,3 +9,4 @@ def run_command(command):
 
 # Step 1: pull updates
 run_command("git pull")
+
