@@ -1,4 +1,12 @@
 import functions as func
+"""
+DESCRIPTION: This file holds the menu logic
+
+CONTENTS:
+Full Menu with menu options
+while loop to return to menu after each option is selected.
+"""
+
 
 while True:
     try:    
