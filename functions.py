@@ -1,5 +1,33 @@
 import db_base as db
 
+"""
+This file has the code for the classes and functions
+
+Contents:
+
+Ingredints Class:
+    Create: add_ing()
+    Retrieve: fetch_ing()
+    Update: update_ing()
+    Delete: delete_ing()
+    Reset: reset_database_ing()
+
+Steps Class:
+    Create: add_steps()
+    Retrieve: fetch_steps()
+    Update: update_steps()
+    Delete: delete_steps()
+    Reset: reset_database_steps()
+
+Recipes Class
+    Create: add_recipe()
+    Retrieve: fetch_recipe()
+    Update: update_recipe()
+    Delete: delete_recipe()
+    Reset: reset_database_recipe()
+
+Upload CSV Class
+"""
 
 
 #////////////////////////////////// Ingredients Class //////////////////////////////////#
@@ -335,3 +363,6 @@ class RecipeList(db.DBbase):
         finally:
             super().close_db()
 
+
+
+#//////////////////////// Upload CSV //////////////////////////#
