@@ -1,4 +1,3 @@
-import functions as func
 """
 DESCRIPTION: This file holds the menu logic
 
@@ -6,6 +5,7 @@ CONTENTS:
 Full Menu with menu options
 while loop to return to menu after each option is selected.
 """
+import functions as func
 
 while True:
     try:    
@@ -21,9 +21,11 @@ while True:
                             "8  Close program\n\n"
                             "What would you like to do? "))
 
+# Connect to the functions file
         rl = func.RecipeList()
         il = func.IngredientList()
         sl = func.StepsList()
+        csv_recipe = func.CsvRecipe("recipedb.sqlite")
 
         if selection == 1:
 # View recipe List
@@ -119,7 +121,6 @@ while True:
             if reset_or_uploadCSV == "1":
                 try:
                     csv_file = input("What is full file name of the csv file (for example, recipes.csv): ")
-                    csv_recipe = func.CsvRecipe("recipedb.sqlite")
                     csv_recipe.read_recipe_data(csv_file)
                     csv_recipe.save_to_database()
                 except Exception as e:
