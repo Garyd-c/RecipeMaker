@@ -1,6 +1,3 @@
-import db_base as db
-import csv
-
 """
 This file has the code for the classes and functions
 
@@ -29,6 +26,9 @@ Recipes Class
 
 Upload CSV Class
 """
+
+import db_base as db
+import csv
 
 
 #////////////////////////////////// Ingredients Class //////////////////////////////////#
