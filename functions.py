@@ -1,4 +1,5 @@
 import db_base as db
+import csv
 
 """
 This file has the code for the classes and functions
@@ -366,3 +367,163 @@ class RecipeList(db.DBbase):
 
 
 #//////////////////////// Upload CSV //////////////////////////#
+
+
+class Recipe:
+    def __init__(self, row):
+        # Assuming CSV columns: recipe_name, description, category, ingredient, unit, quantity, step_order, step
+        self.recipe_name = row[0]
+        self.description = row[1]
+        self.category = row[2]
+
+class Ingredient:
+    def __init__(self, row):
+        self.recipe_name = row[0]
+        self.ingredient = row[3]
+        self.unit = row[4]
+        try:
+            self.quantity = float(row[5])
+        except ValueError:
+            self.quantity = None  # or 0 or raise an error
+
+class Step:
+    def __init__(self, row):
+        self.recipe_name = row[0]
+        try:
+            self.step_order = int(row[6])
+        except ValueError:
+            self.step_order = None  # or raise error
+        self.step = row[7]
+class CsvRecipe(db.DBbase):
+
+    def reset_or_create_db(self):
+        """
+        Drops the existing Steps, Ingredients, and Recipes tables if they exist,
+        then creates fresh tables for storing recipe data, ingredients, and steps.
+        This ensures the database schema is up-to-date and clean.
+        """
+        try:
+            sql = """
+            DROP TABLE IF EXISTS Steps;
+            DROP TABLE IF EXISTS Ingredients;
+            DROP TABLE IF EXISTS Recipes;
+
+            CREATE TABLE Recipes (
+                recipe_name TEXT PRIMARY KEY,
+                description TEXT,
+                category TEXT
+            );
+
+            CREATE TABLE Ingredients (
+                ingredient_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                recipe_name TEXT,
+                ingredient TEXT NOT NULL,
+                unit TEXT,
+                quantity REAL CHECK (quantity > 0),
+                FOREIGN KEY (recipe_name) REFERENCES Recipes(recipe_name)
+            );
+
+            CREATE TABLE Steps (
+                recipe_name TEXT,
+                step_order INTEGER NOT NULL,
+                step TEXT NOT NULL,
+                PRIMARY KEY (recipe_name, step_order),
+                FOREIGN KEY (recipe_name) REFERENCES Recipes(recipe_name)
+            );
+            """
+            super().execute_script(sql)
+            print("Database reset/created successfully.")
+        except Exception as e:
+            print("Error resetting/creating database:", e)
+
+    def read_recipe_data(self, file_name):
+        """
+        Reads the CSV file and parses its contents into separate lists of recipe,
+        ingredient, and step objects. Uses a set to avoid duplicate recipe entries.
+        """
+        self.recipe_list = []
+        self.ingredient_list = []
+        self.step_list = []
+        self.seen_recipes = set()  # Tracks recipes already added to avoid duplicates
+
+        try:
+            with open(file_name, 'r') as record:
+                csv_contents = csv.reader(record)
+                next(csv_contents)  # Skip the CSV header row
+
+                for row in csv_contents:
+                    # row assumed format: [recipe_name, description, category, ingredient, unit, quantity, step_order, step]
+
+                    # Add a Recipe object only once per unique recipe_name
+                    if row[0] not in self.seen_recipes:
+                        recipe = Recipe(row)
+                        self.recipe_list.append(recipe)
+                        self.seen_recipes.add(row[0])
+
+                    # Add Ingredient object for every row (multiple ingredients per recipe possible)
+                    ingredient = Ingredient(row)
+                    self.ingredient_list.append(ingredient)
+
+                    # Add Step object for every row (multiple steps per recipe possible)
+                    step = Step(row)
+                    self.step_list.append(step)
+
+                    print(row)  # Optional debug print of the row data
+
+        except Exception as e:
+            print("Error reading CSV data:", e)
+
+    def save_to_database(self):
+        """
+        Saves the parsed recipes, ingredients, and steps into their respective database tables.
+        Asks for confirmation before saving.
+        Commits each insert operation individually, with error handling.
+        """
+        print(f"Number of recipes records to save: {len(self.recipe_list)}")
+        print(f"Number of ingredients records to save: {len(self.ingredient_list)}")
+        print(f"Number of steps records to save: {len(self.step_list)}")
+
+        save = input("Continue? ").lower()
+
+        if save == 'y':
+            # Insert Recipes
+            for item in self.recipe_list:
+                try:
+                    super().get_cursor.execute(
+                        """INSERT OR IGNORE INTO Recipes (recipe_name, description, category)
+                           VALUES (?, ?, ?)""",
+                        (item.recipe_name, item.description, item.category)
+                    )
+                    super().get_connection.commit()
+                    print("Saved recipe:", item.recipe_name)
+                except Exception as e:
+                    print("Error saving recipe:", e)
+
+            # Insert Ingredients
+            for item in self.ingredient_list:
+                try:
+                    super().get_cursor.execute(
+                        """INSERT INTO Ingredients (recipe_name, ingredient, unit, quantity)
+                           VALUES (?, ?, ?, ?)""",
+                        (item.recipe_name, item.ingredient, item.unit, item.quantity)
+                    )
+                    super().get_connection.commit()
+                    print(f"Saved ingredient: {item.ingredient} (Recipe: {item.recipe_name})")
+                except Exception as e:
+                    print("Error saving ingredient:", e)
+
+            # Insert Steps
+            for item in self.step_list:
+                try:
+                    super().get_cursor.execute(
+                        """INSERT INTO Steps (recipe_name, step_order, step)
+                           VALUES (?, ?, ?)""",
+                        (item.recipe_name, item.step_order, item.step)
+                    )
+                    super().get_connection.commit()
+                    print(f"Saved step {item.step_order} for recipe: {item.recipe_name}")
+                except Exception as e:
+                    print("Error saving step:", e)
+
+        else:
+            print("Save to DB aborted")

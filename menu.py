@@ -17,7 +17,7 @@ while True:
                             "4  Create new recipe\n"
                             "5  Update a recipe\n"
                             "6  Delete a recipe\n"
-                            "7  Reset Database\n"
+                            "7  Manage Database\n"
                             "8  Close program\n\n"
                             "What would you like to do? "))
 
@@ -106,26 +106,51 @@ while True:
                 print("Delete request aborted.")
 
         elif selection == 7:
-# Reset Database
-            while True:
-                confirmation1 = input(f"Reseting the database will delete all recipes.\nType 'y' to continue or 'n' to abort, then press enter (y/n): ").lower()
-                if confirmation1 == "y":
-                    while True:
-                        confirmation2 = input(f"Reset Database?\nType 'y' to confirm 'n' to abort, then press enter (y/n): ").lower()
-                        if confirmation2 == "y":
-                            rl.reset_database_recipe()
-                            break
-                        elif confirmation2 == "n":
-                            print("Reset request aborted.")
-                            break
-                        else:
-                            print("Please type 'y' or 'n'")
-                    break        
-                elif confirmation1 == "n":
-                    print("Reset request aborted.")
-                    break
-                else:
-                    print("Please type 'y' or 'n'")
+# Upload CSV or Reset Database
+            # User selects option: Upload CSV or Reset DB
+
+            reset_or_uploadCSV = input("\nWould you like to\n" 
+                                        "1  Upload a CSV\n" 
+                                        "2  Reset the database\n" 
+                                        "Enter the number of the action you would like to take: ")
+            
+            # User uploads CSV
+
+            if reset_or_uploadCSV == "1":
+                try:
+                    csv_file = input("What is full file name of the csv file (for example, recipes.csv): ")
+                    csv_recipe = func.CsvRecipe("recipedb.sqlite")
+                    csv_recipe.read_recipe_data(csv_file)
+                    csv_recipe.save_to_database()
+                except Exception as e:
+                    print(f"An Error occured: {e}")
+
+            # User resets the database
+
+            elif reset_or_uploadCSV == "2":
+                while True:
+                    # First confirmation
+
+                    confirmation1 = input(f"\nReseting the database will delete all recipes.\nType 'y' to continue or 'n' to abort, then press enter (y/n): ").lower()
+                    if confirmation1 == "y":
+                        while True:
+                            # Second Confirmation
+
+                            confirmation2 = input(f"Reset Database?\nType 'y' to confirm 'n' to abort, then press enter (y/n): ").lower()
+                            if confirmation2 == "y":
+                                rl.reset_database_recipe()
+                                break
+                            elif confirmation2 == "n":
+                                print("Reset request aborted.")
+                                break
+                            else:
+                                print("Please type 'y' or 'n'")
+                        break        
+                    elif confirmation1 == "n":
+                        print("Reset request aborted.")
+                        break
+                    else:
+                        print("Please type 'y' or 'n'")
 
 
         elif selection == 8:

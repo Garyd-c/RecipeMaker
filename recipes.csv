@@ -1,0 +1,100 @@
+recipe_name,description,category,ingredient,unit,quantity,step_order,step
+Pancakes ,Fluffly flat cakes,Breakfast ,Flour,cup,1,1,Mix flour and eggs together in a bowl
+Pancakes ,Fluffly flat cakes,Breakfast ,Egg,pieces,2,2,Heat up pan and pour oil to pan
+Pancakes ,Fluffly flat cakes,Breakfast ,Water ,cup,0.5,3,Put the dough mixture into pan and cook
+Pancakes ,Fluffly flat cakes,Breakfast ,Veggie Oil,tsp,1,4,Flip and serve with favorite toppings
+Omlette,Fluffy cheeasy eggs ,Breakfast ,Egg ,pieces,3,1,"Whisk egg, cheese and spinach"
+Omlette,Fluffy cheeasy eggs ,Breakfast ,Cheese ,grams,50,2,Heat up pan and pour oil to pan
+Omlette,Fluffy cheeasy eggs ,Breakfast ,Spinach,cups,0.5,3,Pour egg mixture in 
+Omlette,Fluffy cheeasy eggs ,Breakfast ,Oil,tsp,1,4,Take out and serve 
+Spaghetti Bolognese,Classic Italian meat sauce pasta,Dinner,Spaghetti,grams,200,1,Boil spaghetti in salted water
+Spaghetti Bolognese,Classic Italian meat sauce pasta,Dinner,Ground Beef,grams,250,2,Brown the ground beef in a pan
+Spaghetti Bolognese,Classic Italian meat sauce pasta,Dinner,Tomato Sauce,cup,1,3,Add tomato sauce and simmer
+Spaghetti Bolognese,Classic Italian meat sauce pasta,Dinner,Garlic,cloves,2,4,Pour it out into a serving and enjoy
+Tacos,Quick beef tacos,Lunch,Ground Beef,grams,200,1,Cook beef with taco seasoning
+Tacos,Quick beef tacos,Lunch,Tortillas,pieces,4,2,Warm tortillas in a pan
+Tacos,Quick beef tacos,Lunch,Lettuce,cup,1,3,"Assemble beef, lettuce in tortillas"
+Tacos,Quick beef tacos,Lunch,Shredded Cheese,cup,0.5,4,Top with cheese and serve
+Caesar Salad,Classic romaine salad with dressing,Snack,Romaine Lettuce,cup,2,1,Chop and rinse lettuce
+Caesar Salad,Classic romaine salad with dressing,Snack,Croutons,cup,1,2,Add croutons and parmesan
+Caesar Salad,Classic romaine salad with dressing,Snack,Caesar Dressing,tbsp,3,3,Drizzle dressing and toss the salad
+Scrambled Eggs,Easy fluffy scrambled eggs,Breakfast,Eggs,pieces,3,1,Crack eggs into a bowl
+Scrambled Eggs,Easy fluffy scrambled eggs,Breakfast,Milk,tbsp,2,2,Whisk eggs with milk
+Scrambled Eggs,Easy fluffy scrambled eggs,Breakfast,Butter,tbsp,1,3,Melt butter and pour egg mixture
+Scrambled Eggs,Easy fluffy scrambled eggs,Breakfast,Salt,tsp,0.25,4,Stir eggs until cooked through
+Chocolate Mug Cake,Quick cake in a mug (microwave),Dessert,Flour,tbsp,4,1,Mix dry ingredients in a mug
+Chocolate Mug Cake,Quick cake in a mug (microwave),Dessert,Cocoa Powder,tbsp,2,2,"Add milk and oil, stir well"
+Chocolate Mug Cake,Quick cake in a mug (microwave),Dessert,Milk,tbsp,3,3,Microwave on high for 90 seconds
+Chocolate Mug Cake,Quick cake in a mug (microwave),Dessert,Chocolate Chips,tbsp,1,4,Let cool slightly and enjoy
+Chicken Curry,Spicy and savory curry dish,Dinner,Chicken Breast,grams,300,1,Sauté chicken pieces in oil
+Chicken Curry,Spicy and savory curry dish,Dinner,Onion,pieces,1,2,Add chopped onion and cook until soft
+Chicken Curry,Spicy and savory curry dish,Dinner,Curry Powder,tbsp,2,3,Stir in curry powder and cook for 1 min
+Chicken Curry,Spicy and savory curry dish,Dinner,Coconut Milk,cup,1,4,"Pour in coconut milk, simmer 15 mins"
+Grilled Cheese,Classic melted cheese sandwich,Lunch,Bread Slices,pieces,2,1,Butter one side of each bread slice
+Grilled Cheese,Classic melted cheese sandwich,Lunch,Cheese Slices,pieces,2,2,Place cheese between unbuttered sides
+Grilled Cheese,Classic melted cheese sandwich,Lunch,Butter,tbsp,1,3,Grill in pan until golden brown on both sides
+Fried Rice,Quick stir-fried rice dish,Lunch,Cooked Rice,cup,2,1,Heat oil in a large pan
+Fried Rice,Quick stir-fried rice dish,Lunch,Mixed Veggies,cup,1,2,Add veggies and sauté for 2–3 minutes
+Fried Rice,Quick stir-fried rice dish,Lunch,Soy Sauce,tbsp,2,3,"Add rice and soy sauce, stir well"
+Fried Rice,Quick stir-fried rice dish,Lunch,Egg,pieces,1,4,"Push rice aside, scramble egg, mix in"
+French Toast,Sweet egg-soaked fried bread,Breakfast,Bread Slices,pieces,2,1,"Whisk egg, milk, and cinnamon together"
+French Toast,Sweet egg-soaked fried bread,Breakfast,Egg,pieces,1,2,Dip bread slices into egg mixture
+French Toast,Sweet egg-soaked fried bread,Breakfast,Milk,tbsp,3,3,Fry bread on both sides until golden
+French Toast,Sweet egg-soaked fried bread,Breakfast,Cinnamon,tsp,0.5,4,Serve with syrup or powdered sugar
+Mac and Cheese,Creamy baked pasta with cheese,Dinner,Macaroni,grams,200,1,Boil macaroni until tender
+Mac and Cheese,Creamy baked pasta with cheese,Dinner,Cheese (cheddar),cup,1.5,2,Melt cheese with milk in a saucepan
+Mac and Cheese,Creamy baked pasta with cheese,Dinner,Milk,cup,1,3,Mix cheese sauce with drained macaroni
+Mac and Cheese,Creamy baked pasta with cheese,Dinner,Butter,tbsp,2,4,Optional: bake with buttered breadcrumbs
+Mashed Potatoes,Creamy mashed potatoes,Dinner,Potatoes,pcs,4,1,Peel and boil potatoes until soft
+Mashed Potatoes,Creamy mashed potatoes,Dinner,Milk,cup,0.5,2,Add milk and butter to potatoes
+Mashed Potatoes,Creamy mashed potatoes,Dinner,Butter,tbsp,2,3,Mash everything together
+Mashed Potatoes,Creamy mashed potatoes,Dinner,Salt,tsp,0.5,4,Season to taste and serve
+Burrito,Mexican rice and bean wrap,Lunch,Tortilla,pcs,1,1,Warm tortilla in pan
+Burrito,Mexican rice and bean wrap,Lunch,Cooked Rice,cup,0.5,2,Layer rice onto tortilla
+Burrito,Mexican rice and bean wrap,Lunch,Black Beans,cup,0.5,3,"Add beans, cheese, salsa"
+Burrito,Mexican rice and bean wrap,Lunch,Shredded Cheese,cup,0.25,4,Roll up and enjoy
+Tomato Soup,Classic creamy tomato soup,Dinner,Tomato,pcs,4,1,Chop and sauté tomatoes with garlic
+Tomato Soup,Classic creamy tomato soup,Dinner,Onion,pcs,1,2,Add onion and cook until soft
+Tomato Soup,Classic creamy tomato soup,Dinner,Cream,cup,0.5,3,"Blend mixture, add cream and heat"
+Chili Con Carne,Spicy beef and beans,Dinner,Ground Beef,grams,300,1,Brown beef with chopped onions
+Chili Con Carne,Spicy beef and beans,Dinner,Kidney Beans,cup,1,2,Add beans and chili powder
+Chili Con Carne,Spicy beef and beans,Dinner,Tomato Sauce,cup,1,3,Simmer for 20 minutes
+Waffles,Crisp golden breakfast treat,Breakfast,Flour,cup,1.5,1,Mix dry ingredients together
+Waffles,Crisp golden breakfast treat,Breakfast,Egg,pcs,2,2,"Add eggs, milk, and oil"
+Waffles,Crisp golden breakfast treat,Breakfast,Milk,cup,1.25,3,Pour batter into preheated waffle iron
+Waffles,Crisp golden breakfast treat,Breakfast,Vegetable Oil,tbsp,2,4,Cook until golden brown
+Falafel,Crispy chickpea patties,Snack,Chickpeas,cup,1,1,"Blend chickpeas, herbs, garlic"
+Falafel,Crispy chickpea patties,Snack,Parsley,tbsp,2,2,Form into small balls
+Falafel,Crispy chickpea patties,Snack,Flour,tbsp,2,3,Fry until golden and cooked through
+Greek Salad,Fresh Mediterranean salad,Snack,Cucumber,pcs,1,1,"Slice cucumbers, tomatoes, and onion"
+Greek Salad,Fresh Mediterranean salad,Snack,Feta Cheese,cup,0.5,2,Add feta and olives
+Greek Salad,Fresh Mediterranean salad,Snack,Olive Oil,tbsp,2,3,Toss with olive oil and lemon juice
+Beef Stew,Slow-cooked hearty stew,Dinner,Beef Chunks,grams,400,1,Brown beef in pot
+Beef Stew,Slow-cooked hearty stew,Dinner,Carrots,pcs,2,2,Add chopped carrots and potatoes
+Beef Stew,Slow-cooked hearty stew,Dinner,Beef Broth,cup,2,3,
+Shrimp Stir Fry,Quick shrimp and veggie stir fry,Dinner,Shrimp,grams,200,1,Cook shrimp in hot wok
+Shrimp Stir Fry,Quick shrimp and veggie stir fry,Dinner,Bell Peppers,pcs,1,2,Add chopped peppers
+Shrimp Stir Fry,Quick shrimp and veggie stir fry,Dinner,Soy Sauce,tbsp,2,3,
+Risotto,Creamy Italian rice dish,Dinner,Arborio Rice,cup,1,1,Toast rice in butter
+Risotto,Creamy Italian rice dish,Dinner,Onion,pcs,1,2,Sauté onions until soft
+Risotto,Creamy Italian rice dish,Dinner,Vegetable Broth,cup,3,3,"Gradually add broth, stirring frequently"
+Risotto,Creamy Italian rice dish,Dinner,Parmesan,tbsp,2,4,Stir in cheese and serve warm
+Pizza Margherita,Classic tomato and cheese pizza,Dinner,Pizza Dough,pcs,1,1,Roll out pizza dough
+Pizza Margherita,Classic tomato and cheese pizza,Dinner,Tomato Sauce,cup,0.5,2,Spread tomato sauce evenly
+Pizza Margherita,Classic tomato and cheese pizza,Dinner,Mozzarella,cup,1,3,Top with mozzarella slices
+Pizza Margherita,Classic tomato and cheese pizza,Dinner,Basil Leaves,tbsp,1,4,"Add basil and bake at 450°F for 12 min, then serve"
+Lentil Soup,Hearty and healthy soup,Dinner,Lentils,cup,1,1,Rinse and boil lentils
+Lentil Soup,Hearty and healthy soup,Dinner,Carrots,pcs,2,2,Add chopped carrots and onion
+Lentil Soup,Hearty and healthy soup,Dinner,Vegetable Broth,cup,4,3,
+Garlic Bread,Toasted bread with garlic butter,Snack,Baguette,pcs,1,1,Slice baguette lengthwise
+Garlic Bread,Toasted bread with garlic butter,Snack,Butter,tbsp,3,2,Mix butter with minced garlic and parsley
+Garlic Bread,Toasted bread with garlic butter,Snack,Garlic,cloves,2,3,
+Tomato Basil Sauce,Classic Italian pasta sauce,Sauce,Tomatoes,pcs,4,1,Chop tomatoes and cook in olive oil
+Tomato Basil Sauce,Classic Italian pasta sauce,Sauce,Garlic,cloves,2,2,Add minced garlic and sauté
+Tomato Basil Sauce,Classic Italian pasta sauce,Sauce,Fresh Basil,tbsp,2,3,Stir in basil and simmer for 15 minutes
+Tomato Basil Sauce,Classic Italian pasta sauce,Sauce,Olive Oil,tbsp,2,4,Blend sauce to desired texture and serve
+Pesto Sauce,Fresh green basil-based sauce,Sauce,Fresh Basil,cup,2,1,"Add basil, garlic, and pine nuts to blender"
+Pesto Sauce,Fresh green basil-based sauce,Sauce,Garlic,cloves,2,2,Add garlic and pulse
+Pesto Sauce,Fresh green basil-based sauce,Sauce,Pine Nuts,tbsp,3,3,Add pine nuts and blend again
+Pesto Sauce,Fresh green basil-based sauce,Sauce,Olive Oil,tbsp,4,4,Stream in olive oil and blend until smooth
+Pesto Sauce,Fresh green basil-based sauce,Sauce,Parmesan Cheese,tbsp,2,5,Mix in grated Parmesan before serving
