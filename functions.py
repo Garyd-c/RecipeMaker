@@ -271,7 +271,7 @@ class RecipeList(db.DBbase):
             print("An error has occurred.", e)
 
 # Retrieve
-    def fetch_recipe(self, recipe_name=None):
+    def fetch_recipe(self, recipe_name=None, name_start = None, name_end = None):
         try:        
             # View the list of recipe steps:
 
@@ -279,6 +279,9 @@ class RecipeList(db.DBbase):
                 return super().get_cursor.execute("SELECT * FROM Recipes WHERE recipe_name = ?;", (recipe_name,)).fetchall()
             
             # View the full DB of ingredients
+
+            elif name_start is not None:
+                return super().get_cursor.execute("SELECT * FROM Recipes WHERE recipe_name >= ? AND recipe_name < ?;", (name_start, name_end)).fetchall()
 
             else:
                 return super().get_cursor.execute("SELECT * FROM Recipes;").fetchall()

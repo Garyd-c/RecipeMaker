@@ -30,11 +30,44 @@ while True:
         if selection == 1:
 # View recipe List
 
-            print("\nRecipe List"
-                "\n--------------")
 
-            for recipe in rl.fetch_recipe(None):
-                print(recipe[0])
+            content_select = int(input("Please select a recipe view:\n\n"
+                                       "1: Full recipe list\n"
+                                       "2: Recipes A-H\n"
+                                       "3: Recipes I-P\n"
+                                       "4: Recipes Q-Z\n\n"
+                                       "Which recipes would you like to view? "))
+
+
+# All recipes
+            if content_select == 1:
+                print("\nRecipe List"
+                    "\n--------------")
+
+                for recipe in rl.fetch_recipe(None):
+                    print(recipe[0])
+
+# View recipes by alphabet chunks
+            elif content_select == 2:
+                print("\nRecipes A-H\n"
+                    "\n--------------")
+
+                for recipe in rl.fetch_recipe(name_start="A", name_end="I"):
+                    print(recipe[0])
+
+            elif content_select == 3:
+                print("\nRecipes I-Q\n"
+                    "\n--------------")
+
+                for recipe in rl.fetch_recipe(name_start="I", name_end="Q"):
+                    print(recipe[0])
+
+            elif content_select == 4:
+                print("\nRecipes Q-Z\n"
+                    "\n--------------")
+
+                for recipe in rl.fetch_recipe(name_start="Q", name_end="Zzz"):
+                    print(recipe[0])
 
 
         elif selection == 2:
