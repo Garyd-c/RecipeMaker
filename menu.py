@@ -129,32 +129,14 @@ while True:
         elif selection == 5:
 # Update a recipe
             content_select = int(input("Please what you would like to update:\n\n"
-                            "1: Full recipe\n"
-                            "2: Recipe header\n"
-                            "3: Recipe ingredient\n"
-                            "4: Recipe step\n\n"
+                            "1: Recipe header\n"
+                            "2: Recipe ingredient\n"
+                            "3: Recipe step\n\n"
                             "What would you like to update? "))
-    # Update Full Recipe
-
-            if content_select == 1:
-                # Choose ingredient's recipe
-                recipe_name = input("Which recipe would you like to update? ")
-
-                # Verify recipe
-                rlist = list()
-                for recipe in rl.fetch_recipe(None):
-                    rlist.append(recipe[0])
-                
-                if recipe_name in rlist:
-                    pass
-
-                
-                else:
-                    print(f"{recipe_name} is not in the list.")
 
     # Update Recipe header
 
-            elif content_select == 2:
+            if content_select == 1:
                 # Choose ingredient's recipe
                 recipe_name = input("Which recipe would you like to update? ")
 
@@ -206,7 +188,7 @@ while True:
 
     # Update Recipe ingredient
 
-            elif content_select == 3:
+            elif content_select == 2:
                 # Choose ingredient's recipe
                 recipe_name = input("Which recipe would you like to update? ")
 
@@ -247,7 +229,7 @@ while True:
 
     # Update Recipe step
 
-            elif content_select == 4:
+            elif content_select == 3:
                 # Choose ingredient's recipe
                 recipe_name = input("Which recipe would you like to update? ")
 
