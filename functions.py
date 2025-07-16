@@ -72,14 +72,14 @@ class IngredientList(db.DBbase):
             print("An error has occurred.", e)
             return False
 
-# # Update
-#     def update_ing(self, ingredient_id, recipe_name):
-#         try:
-#             super().get_cursor.execute("UPDATE Ingredients SET recipe_name = ? where id = ?;", (ingredient_id, recipe_name))
-#             super().get_connection.commit()
-#             print(f"Update record to  {recipe_name} success!")
-#         except Exception as e:
-#             print("An error has occurred.", e)
+# Update
+    def update_ing(self, ingredient_id, recipe_name, ingredient, unit=None, quantity=1):
+        try:
+            super().get_cursor.execute("UPDATE Ingredients SET recipe_name = ?, ingredient = ?, unit = ?, quantity = ? where id = ?;", (recipe_name, ingredient, unit, quantity, ingredient_id))
+            super().get_connection.commit()
+            print(f"Update {ingredient} success!")
+        except Exception as e:
+            print("An error has occurred.", e)
 
 # Delete
     def delete_ing(self, recipe_name=None, ingredient_id=None):

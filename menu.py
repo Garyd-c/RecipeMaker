@@ -39,7 +39,7 @@ while True:
                                        "Which recipes would you like to view? "))
 
 
-# All recipes
+    # All recipes
             if content_select == 1:
                 print("\nRecipe List"
                     "\n--------------")
@@ -47,7 +47,7 @@ while True:
                 for recipe in rl.fetch_recipe(None):
                     print(recipe[0])
 
-# View recipes by alphabet chunks
+    # View recipes by alphabet chunks
             elif content_select == 2:
                 print("\nRecipes A-H\n"
                     "\n--------------")
@@ -71,7 +71,7 @@ while True:
 
 
         elif selection == 2:
-# View a full recipe
+    # View a full recipe
             rname = input("Which recipe would you like to see? ")
             print("")
             print(rl.fetch_recipe(rname)[0][0].center(30," "))
@@ -128,8 +128,40 @@ while True:
 
         elif selection == 5:
 # Update a recipe
-            print("Not configured yet")
-            pass
+            content_select = int(input("Please what you would like to update:\n\n"
+                            "1: Full recipe\n"
+                            "2: Recipe header\n"
+                            "3: Recipe ingredient\n"
+                            "4: Recipe step\n\n"
+                            "What would you like to update? "))
+    # Update Full Recipe
+
+            if content_select == 1:
+                pass
+
+    # Update Recipe header
+
+            elif content_select == 2:
+                pass
+
+    # Update Recipe ingredient
+
+            elif content_select == 3:
+                recipe_name = input("Which recipe would you like to update? ")
+                print("Here is the list of ingredients and id's")
+                print("\n"+"Ingredients".rjust(len("Ingredients")+2," "))
+                print("".center(len("Ingredients")+4,"-"))
+                for ingredient in il.fetch_ing(recipe_name,None):
+                    print(ingredient[0] + " " + ingredient[2])
+                print("Please select the id of the ingredient to update.")
+                pass
+
+                # il.update_ing(id,recipe_name,ingredient,unit,quantity)
+
+    # Update Recipe step
+
+            elif content_select == 4:
+                pass
 
         elif selection == 6:
 # Delete a recipe
