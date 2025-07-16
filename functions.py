@@ -184,14 +184,14 @@ class StepsList(db.DBbase):
             print("An error has occurred.", e)
             return False
 
-# # Update
-#     def update_steps(self, ingredient_id, recipe_name):
-#         try:
-#             super().get_cursor.execute("UPDATE Ingredients SET recipe_name = ? where id = ?;", (ingredient_id, recipe_name))
-#             super().get_connection.commit()
-#             print(f"Update record to  {recipe_name} success!")
-#         except Exception as e:
-#             print("An error has occurred.", e)
+# Update
+    def update_steps(self, recipe_name, step_order, step):
+        try:
+            super().get_cursor.execute("UPDATE Steps SET step = ? where recipe_name = ? AND step_order = ?;", (step, recipe_name, step_order))
+            super().get_connection.commit()
+            print(f"Updated step #{step_order} for {recipe_name}!")
+        except Exception as e:
+            print("An error has occurred.", e)
 
 # Delete
     def delete_steps(self, recipe_name=None, step_order=None):
@@ -290,14 +290,30 @@ class RecipeList(db.DBbase):
             print("An error has occurred.", e)
             return False
 
-# # Update
-#     def update_recipe(self, ingredient_id, recipe_name):
-#         try:
-#             super().get_cursor.execute("UPDATE Ingredients SET recipe_name = ? where id = ?;", (ingredient_id, recipe_name))
-#             super().get_connection.commit()
-#             print(f"Update record to  {recipe_name} success!")
-#         except Exception as e:
-#             print("An error has occurred.", e)
+# Update
+    def update_recipe_name(self, recipe_name_new,recipe_name_old):
+        try:
+            super().get_cursor.execute("UPDATE Recipes SET recipe_name = ? where recipe_name_new = ?;", (recipe_new, recipe_name_old))
+            super().get_connection.commit()
+            print(f"Updated  {recipe_name_old} to {recipe_name_new}!")
+        except Exception as e:
+            print("An error has occurred.", e)
+
+    def update_recipe_description(self, recipe_name, description):
+        try:
+            super().get_cursor.execute("UPDATE Recipes SET description = ? where recipe_name = ?;", (description, recipe_name))
+            super().get_connection.commit()
+            print(f"Updated {recipe_name} description!")
+        except Exception as e:
+            print("An error has occurred.", e)
+
+    def update_recipe_category(self, recipe_name, category):
+        try:
+            super().get_cursor.execute("UPDATE Recipes SET category = ? where recipe_name = ?;", (category, recipe_name))
+            super().get_connection.commit()
+            print(f"Updated {recipe_name} category!")
+        except Exception as e:
+            print("An error has occurred.", e)
 
 # Delete
     def delete_recipe(self, recipe_name):
