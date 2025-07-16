@@ -293,7 +293,7 @@ class RecipeList(db.DBbase):
 # Update
     def update_recipe_name(self, recipe_name_new,recipe_name_old):
         try:
-            super().get_cursor.execute("UPDATE Recipes SET recipe_name = ? where recipe_name_new = ?;", (recipe_new, recipe_name_old))
+            super().get_cursor.execute("UPDATE Recipes SET recipe_name = ? where recipe_name_new = ?;", (recipe_name_new, recipe_name_old))
             super().get_connection.commit()
             print(f"Updated  {recipe_name_old} to {recipe_name_new}!")
         except Exception as e:
