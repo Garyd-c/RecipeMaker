@@ -147,9 +147,9 @@ while True:
                 
                 if recipe_name in rlist:
                     # Print header data
-                    print(rl.fetch_recipe(recipe_name)[0])
-                    print("Category: " + rl.fetch_recipe(recipe_name)[2])
-                    print("Description:\n" + rl.fetch_recipe(recipe_name)[1])
+                    print(rl.fetch_recipe(recipe_name,None,None)[0])
+                    print("Category: " + rl.fetch_recipe(recipe_name,None,None)[2])
+                    print("Description:\n" + rl.fetch_recipe(recipe_name,None,None)[1])
 
                     # Select item to update
                     header_select = int(input("\nWhat would you like to update?" \
