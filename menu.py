@@ -147,16 +147,43 @@ while True:
     # Update Recipe ingredient
 
             elif content_select == 3:
+                # Choose ingredient's recipe
                 recipe_name = input("Which recipe would you like to update? ")
-                print("Here is the list of ingredients and id's")
-                print("\n"+"Ingredients".rjust(len("Ingredients")+2," "))
-                print("".center(len("Ingredients")+4,"-"))
-                for ingredient in il.fetch_ing(recipe_name,None):
-                    print(ingredient[0] + " " + ingredient[2])
-                print("Please select the id of the ingredient to update.")
-                pass
 
-                # il.update_ing(id,recipe_name,ingredient,unit,quantity)
+                # Verify recipe
+                rlist = list()
+                for recipe in rl.fetch_recipe(None):
+                    rlist.append(recipe[0])
+                
+                if recipe_name in rlist:
+                    
+                    # Print list of ingredients with their ids
+                    print("Here is the list of ingredients and ids:")
+                    print("\n"+"Ingredients".rjust(len("Ingredients")+2," "))
+                    print("".center(len("Ingredients")+4,"-"))
+                    for ingredient in il.fetch_ing(recipe_name,None):
+                        print(str(ingredient[0]) + " " + ingredient[2])
+                    
+                    # Select an ingredient by ID
+                    id = str(input("Please enter the id of the ingredient to update: "))
+
+                    # Print current ingredient data
+                    print("Ingredient: " + il.fetch_ing(recipe_name,id)[2])
+                    print("Unit of Measurement: " + il.fetch_ing(recipe_name,id)[3])
+                    print("Unit Amount: " + str(il.fetch_ing(recipe_name,id)[4]))
+
+                    # Enter updates
+                    ingredient = input("Enter the updated ingredient: ")
+                    unit = input("Enter the updated unit of measurement: ")
+                    quantity = input("Enter the updated unit amount: ")
+
+                    # Update database
+                    il.update_ing(id,ingredient,unit,quantity)
+
+                else:
+                    print(f"{recipe_name} is not in the list.")
+
+
 
     # Update Recipe step
 

@@ -73,9 +73,9 @@ class IngredientList(db.DBbase):
             return False
 
 # Update
-    def update_ing(self, ingredient_id, recipe_name, ingredient, unit=None, quantity=1):
+    def update_ing(self, ingredient_id, ingredient, unit=None, quantity=1):
         try:
-            super().get_cursor.execute("UPDATE Ingredients SET recipe_name = ?, ingredient = ?, unit = ?, quantity = ? where id = ?;", (recipe_name, ingredient, unit, quantity, ingredient_id))
+            super().get_cursor.execute("UPDATE Ingredients SET ingredient = ?, unit = ?, quantity = ? where ingredient_id = ?;", (ingredient, unit, quantity, ingredient_id))
             super().get_connection.commit()
             print(f"Update {ingredient} success!")
         except Exception as e:
