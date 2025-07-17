@@ -324,8 +324,10 @@ class RecipeList(db.DBbase):
 
             super().get_connection.commit()
 
-# Mike's code: Add ingredients for the recipe added
+# Mike's code: 
+            # Add ingredients for the recipe added
 
+            # Add initial ingredient to the list
             ingredients = []
             print("Enter the first ingredient?")
             new_ing = (input())
@@ -334,6 +336,7 @@ class RecipeList(db.DBbase):
             print("Would you like to add another ingredient? y/n ")
             another_ing = input().lower()
 
+            # Add additional ingredients
             while another_ing != "n":
                 print("What is the next ingredient?")
                 new_ing = (input())
@@ -341,9 +344,11 @@ class RecipeList(db.DBbase):
                 another_ing = input("Would you like to add another ingredient? y/n ").lower()
                 #recipe_name,ingredient,unit,quantity
 
+            # Pull classes
             ingredient_list = IngredientList()
             steps_list = StepsList()
 
+            # Go through each ingredient to add units and measurements
             for ingredient in ingredients:
                 unit = input("What is the unit of measurement for " + ingredient + "? ")
                 quantity = float(input("How many {} of {}?".format(unit, ingredient)))
@@ -351,6 +356,7 @@ class RecipeList(db.DBbase):
 
             # Add steps for the recipe and ingredients added
 
+            # Add initial Step
             new_cooking_steps = []
             print("What is the first instruction?")
             new_step = input()
@@ -358,12 +364,14 @@ class RecipeList(db.DBbase):
             print("Would you like to add another step? y/n")
             another_step = input().lower()
 
+            # Add additional steps
             while another_step != "n":
                 print("What is the next step?")
                 new_step = (input())
                 new_cooking_steps.append(new_step)
                 another_step = input("Would you like to add another step? y/n ").lower()
 
+            # Add steps to recipe list.
             for step in new_cooking_steps:
                 steps_list.add_steps(recipe_name, step)
 # End Mikes code
