@@ -134,65 +134,98 @@ while True:
                             "3: Recipe step\n\n"
                             "What would you like to update? "))
 
-    # Update Recipe header
+            # Update Recipe header
 
             if content_select == 1:
                 # Choose ingredient's recipe
                 recipe_name = input("Which recipe would you like to update? ")
 
-                # Verify recipe
+                # Verify recipe is in recipes
                 rlist = list()
                 for recipe in rl.fetch_recipe(None):
                     rlist.append(recipe[0])
                 
                 if recipe_name in rlist:
                     # Print header data
-                    print(rl.fetch_recipe(recipe_name,None,None)[0])
-                    print("Category: " + rl.fetch_recipe(recipe_name,None,None)[2])
-                    print("Description:\n" + rl.fetch_recipe(recipe_name,None,None)[1])
+                    print("\n"+rl.fetch_recipe(recipe_name,None,None)[0][0])
+                    print("Category: " + rl.fetch_recipe(recipe_name,None,None)[0][2])
+                    print("Description:\n" + rl.fetch_recipe(recipe_name,None,None)[0][1]+"\n")
 
-                    # Select item to update
-                    header_select = int(input("\nWhat would you like to update?" \
-                                        "1 Recipe Name"
-                                        "2 Category"
-                                        "3 Description"
-                                        "4 Update full header"
-                                        "Enter the number: "))
-                    if header_select == 1:
-                        # Update name
-                        new = input("What is the new recipe name? ")
-                        rl.update_recipe_name(new,recipe_name)
-                    
-                    elif header_select == 2:
-                        # Update category
-                        cat = input("What is the new category: ")
-                        rl.update_recipe_category(recipe_name,cat)
-
-                    elif header_select == 3:
-                        # Update description
-                        descr = input("What is the new description: ")
-                        rl.update_recipe_category(recipe_name,descr)
-
-                    elif header_select == 4:
-                        # Update full header
-                        new = input("What is the new recipe name? ")
-                        cat = input("What is the new category: ")
-                        descr = input("What is the new description: ")
-
-                        rl.update_recipe_name(new,recipe_name)
-                        recipe_name = new
-                        rl.update_recipe_name(recipe_name,cat)
-                        rl.update_recipe_name(recipe_name,descr)
+                    # Update header parts
+                    rl.update_recipe(recipe_name)
                 else:
                     print(f"{recipe_name} is not in the list.")
 
-    # Update Recipe ingredient
+            # Update Recipe ingredient
 
             elif content_select == 2:
                 # Choose ingredient's recipe
                 recipe_name = input("Which recipe would you like to update? ")
 
-                # Verify recipe
+                # Verify recipe is in recipes
+                rlist = list()
+                for recipe in rl.fetch_recipe(None):
+                    rlist.append(recipe[0])
+                
+                if recipe_name in rlist:
+                    
+                    # Print list of ingredients with their ids
+                    print("Here is the list of ingredients and ids:")
+                    print("\n"+"Ingredients".rjust(len("Ingredients")+2," "))
+                    print("".center(len("Ingredients")+4,"-"))
+                    for ingredient in il.fetch_ing(recipe_name,None):
+                        print(str(ingredient[0]) + " " + ingredient[2])
+                    
+                    # Select an ingredient by ID
+                    id = str(input("Please enter the id of the ingredient to update: "))
+
+                    # Print current ingredient data
+                    print("Ingredient: " + il.fetch_ing(recipe_name,id)[2])
+                    print("Unit of Measurement: " + il.fetch_ing(recipe_name,id)[3])
+                    print("Unit Amount: " + str(il.fetch_ing(recipe_name,id)[4])+"\n")
+
+                    # Enter updates
+                    il.update_ing(id)
+
+                else:
+                    print(f"{recipe_name} is not in the list.")
+
+
+
+            # Update Recipe step
+
+            elif content_select == 3:
+                # Choose ingredient's recipe
+                recipe_name = input("Which recipe would you like to update? ")
+
+                # Verify recipe is in recipes
+                rlist = list()
+                for recipe in rl.fetch_recipe(None):
+                    rlist.append(recipe[0])
+                
+                if recipe_name in rlist:
+                    
+                    # Print list of ingredients with their ids
+                    print("Here is the list of steps and their order:")
+                    print("\n"+"Steps".rjust(len("Steps")+2," "))
+                    print("".center(len("Steps")+4,"-"))
+                    for step in sl.fetch_steps(recipe_name,None):
+                        print(str(step[1]) + " " + step[2])
+                    
+                    # Select an ingredient by ID
+                    step_order = str(input("\nPlease enter step number to update: "))
+
+                    # Update database
+                    sl.update_steps(recipe_name,step_order)
+
+                else:
+                    print(f"{recipe_name} is not in the list.")
+
+            elif content_select == 2:
+                # Choose ingredient's recipe
+                recipe_name = input("Which recipe would you like to update? ")
+
+                # Verify recipe is in recipes
                 rlist = list()
                 for recipe in rl.fetch_recipe(None):
                     rlist.append(recipe[0])
@@ -221,40 +254,6 @@ while True:
 
                     # Update database
                     il.update_ing(id,ingredient,unit,quantity)
-
-                else:
-                    print(f"{recipe_name} is not in the list.")
-
-
-
-    # Update Recipe step
-
-            elif content_select == 3:
-                # Choose ingredient's recipe
-                recipe_name = input("Which recipe would you like to update? ")
-
-                # Verify recipe
-                rlist = list()
-                for recipe in rl.fetch_recipe(None):
-                    rlist.append(recipe[0])
-                
-                if recipe_name in rlist:
-                    
-                    # Print list of ingredients with their ids
-                    print("Here is the list of steps and their order:")
-                    print("\n"+"Steps".rjust(len("Steps")+2," "))
-                    print("".center(len("Steps")+4,"-"))
-                    for step in sl.fetch_steps(recipe_name,None):
-                        print(str(step[1]) + " " + step[2])
-                    
-                    # Select an ingredient by ID
-                    update_step = str(input("\nPlease enter step number to update: "))
-
-                    # Enter updates
-                    instruction = input("Enter the updated step instruction: ")
-
-                    # Update database
-                    sl.update_steps(recipe_name,update_step,instruction)
 
                 else:
                     print(f"{recipe_name} is not in the list.")

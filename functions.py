@@ -73,13 +73,63 @@ class IngredientList(db.DBbase):
             return False
 
 # Update
-    def update_ing(self, ingredient_id, ingredient, unit=None, quantity=1):
-        try:
-            super().get_cursor.execute("UPDATE Ingredients SET ingredient = ?, unit = ?, quantity = ? where ingredient_id = ?;", (ingredient, unit, quantity, ingredient_id))
-            super().get_connection.commit()
-            print(f"Update {ingredient} success!")
-        except Exception as e:
-            print("An error has occurred.", e)
+    def update_ing(self, ingredient_id):     
+
+        self._ing_name = ""
+        self._ing_unit = ""
+        self._ing_quantity = 0
+
+        # Selection Menu
+
+        print("What would you like to update?\n"
+              "1: Ingredient Name\n"
+              "2: Unit of measurement\n"
+              "3: Quantity called for\n")
+
+        option = int(input())
+
+        # Update ingredient name
+        if option == 1:
+            print("What is the updated ingredient name?")
+            self._ing_name = input()
+
+            try:
+                super().get_cursor.execute("UPDATE Ingredients SET ingredient = ? WHERE ingredient_id = ?;", (self._ing_name, ingredient_id))
+                super().get_connection.commit()
+                print(f"Update record to {self._ing_name} success!")
+
+            except Exception as e:
+                print("An error has occurred.", e)
+
+        # Update unit of measurement
+        elif option == 2:
+            print("What is the updated unit of measurement?")
+            self._ing_unit = input()
+
+            try:
+                super().get_cursor.execute("UPDATE Ingredients SET unit = ? WHERE ingredient_id = ?;", (self._ing_unit, ingredient_id))
+                super().get_connection.commit()
+                print(f"Update record to {self._ing_unit} success!")
+
+            except Exception as e:
+                print("An error has occurred.", e)
+
+        # Update quantity called for
+        elif option == 3:
+            print("What is the updated quantity?")
+            self._ing_quantity = input()
+
+            try:
+                super().get_cursor.execute("UPDATE Ingredients SET quantity = ? WHERE ingredient_id = ?;", (self._ing_quantity, ingredient_id))
+                super().get_connection.commit()
+                print(f"Update record to {self._ing_quantity} success!")
+
+            except Exception as e:
+                print("An error has occurred.", e)
+
+        # Handle alternate options
+        else:
+            print("That is not a valid option. Thank you.")
 
 # Delete
     def delete_ing(self, recipe_name=None, ingredient_id=None):
@@ -185,9 +235,16 @@ class StepsList(db.DBbase):
             return False
 
 # Update
-    def update_steps(self, recipe_name, step_order, step):
+    def update_steps(self, recipe_name, step_order):
+        # Get replacement step instruction:
+
+        print(f"What is the new step for {recipe_name} step #{step_order}?")
+        self._updated_step = input()
+
+        # Update DB
+
         try:
-            super().get_cursor.execute("UPDATE Steps SET step = ? where recipe_name = ? AND step_order = ?;", (step, recipe_name, step_order))
+            super().get_cursor.execute("UPDATE Steps SET step = ? where recipe_name = ? AND step_order = ?;", (self._updated_step, recipe_name, step_order))
             super().get_connection.commit()
             print(f"Updated step #{step_order} for {recipe_name}!")
         except Exception as e:
@@ -266,6 +323,51 @@ class RecipeList(db.DBbase):
             # Save to DB
 
             super().get_connection.commit()
+
+# Mike's code: Add ingredients for the recipe added
+
+            ingredients = []
+            print("Enter the first ingredient?")
+            new_ing = (input())
+            another_ing = "y"
+            ingredients.append(new_ing)
+            print("Would you like to add another ingredient? y/n ")
+            another_ing = input().lower()
+
+            while another_ing != "n":
+                print("What is the next ingredient?")
+                new_ing = (input())
+                ingredients.append(new_ing)
+                another_ing = input("Would you like to add another ingredient? y/n ").lower()
+                #recipe_name,ingredient,unit,quantity
+
+            ingredient_list = IngredientList()
+            steps_list = StepsList()
+
+            for ingredient in ingredients:
+                unit = input("What is the unit of measurement for " + ingredient + "? ")
+                quantity = float(input("How many {} of {}?".format(unit, ingredient)))
+                ingredient_list.add_ing(recipe_name, ingredient, unit, quantity)
+
+            # Add steps for the recipe and ingredients added
+
+            new_cooking_steps = []
+            print("What is the first instruction?")
+            new_step = input()
+            new_cooking_steps.append(new_step)
+            print("Would you like to add another step? y/n")
+            another_step = input().lower()
+
+            while another_step != "n":
+                print("What is the next step?")
+                new_step = (input())
+                new_cooking_steps.append(new_step)
+                another_step = input("Would you like to add another step? y/n ").lower()
+
+            for step in new_cooking_steps:
+                steps_list.add_steps(recipe_name, step)
+# End Mikes code
+
             print(f"Added {recipe_name} successfully")
         except Exception as e:
             print("An error has occurred.", e)
@@ -291,29 +393,72 @@ class RecipeList(db.DBbase):
             return False
 
 # Update
-    def update_recipe_name(self, recipe_name_new,recipe_name_old):
-        try:
-            super().get_cursor.execute("UPDATE Recipes SET recipe_name = ? where recipe_name_new = ?;", (recipe_name_new, recipe_name_old))
-            super().get_connection.commit()
-            print(f"Updated  {recipe_name_old} to {recipe_name_new}!")
-        except Exception as e:
-            print("An error has occurred.", e)
+    def update_recipe(self, recipe_name):
 
-    def update_recipe_description(self, recipe_name, description):
-        try:
-            super().get_cursor.execute("UPDATE Recipes SET description = ? where recipe_name = ?;", (description, recipe_name))
-            super().get_connection.commit()
-            print(f"Updated {recipe_name} description!")
-        except Exception as e:
-            print("An error has occurred.", e)
+        self._new_recipe_name = ""
+        self._new_description = ""
+        self._new_category = ""
 
-    def update_recipe_category(self, recipe_name, category):
-        try:
-            super().get_cursor.execute("UPDATE Recipes SET category = ? where recipe_name = ?;", (category, recipe_name))
-            super().get_connection.commit()
-            print(f"Updated {recipe_name} category!")
-        except Exception as e:
-            print("An error has occurred.", e)
+        # Selection Menu
+
+        print("What would you like to update?\n"
+              "1: Recipe Name\n"
+              "2: Recipe Description\n"
+              "3: Recipe Category")
+
+        option = int(input())
+
+        # Update Recipe Name
+        if option == 1:
+            print("What is the updated recipe name?")
+            self._new_recipe_name = input()
+
+            try:
+                # Update all tables
+                super().get_cursor.execute("UPDATE Recipes SET recipe_name = ? WHERE recipe_name = ?;", (self._new_recipe_name, recipe_name))
+                super().get_cursor.execute("UPDATE Ingredients SET recipe_name = ? WHERE recipe_name = ?;", (self._new_recipe_name, recipe_name))
+                super().get_cursor.execute("UPDATE Steps SET recipe_name = ? WHERE recipe_name = ?;", (self._new_recipe_name, recipe_name))
+
+                # Save Changes
+                super().get_connection.commit()
+                print(f"Updated record from {recipe_name} to {self._new_recipe_name}")
+
+            except Exception as e:
+                print("An error has occurred.", e)
+
+        # Update Recipe Description
+        elif option == 2:
+            print("What is the updated description?")
+            self._new_description = input()
+
+            try:
+                # Update table
+                super().get_cursor.execute("UPDATE Recipes SET description = ? WHERE recipe_name = ?;", (self._new_description, recipe_name))
+
+                # Save changes
+                super().get_connection.commit()
+                print(f"Updated {recipe_name}!")
+
+            except Exception as e:
+                print("An error has occurred.", e)
+
+        # Update Recipe Category
+        elif option == 3:
+            print("What is the updated category?")
+            self._new_category = input()
+
+            try:
+                super().get_cursor.execute("UPDATE Recipes SET category = ? WHERE recipe_name = ?;", (self._new_category, recipe_name))
+                super().get_connection.commit()
+                print(f"Updated {recipe_name}!")
+
+            except Exception as e:
+                print("An error has occurred.", e)
+
+        # Handle Alternate inputs
+        else:
+            print("That is not a valid option. Thank you.")
+
 
 # Delete
     def delete_recipe(self, recipe_name):
