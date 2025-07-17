@@ -102,28 +102,37 @@ while True:
             # Add recipe to the recipes table
 
             rname = input("What is the name of the recipe? ")
-            rdescription = input("Describe your recipe: ")
-            rcategory = input("What category does the recipe belong to? ")
-            rl.add_recipe(rname,rdescription,rcategory)
+
+            # Verify recipe is in recipes
+            rlist = list()
+            for recipe in rl.fetch_recipe(None):
+                rlist.append(recipe[0].lower())
+            
+            if recipe_name.lower() in rlist:
+                print(f"{recipe_name.title()} is already a recipe.")
+            else:
+                rdescription = input("Describe your recipe: ")
+                rcategory = input("What category does the recipe belong to? ")
+                rl.add_recipe(rname,rdescription,rcategory)
 
             # Add recipe ingredients for the ingredients table
 
-            while True:
-                ringredient = input("Ingredient name: ")
-                runit = input("Unit of measurement (cup/tbsp/grams/etc): ")
-                rquantity = int(input("Unit amount: "))
-                il.add_ing(rname,ringredient,runit,rquantity)
-                if input("Add another ingredient? (y/n): ").lower() == "n":
-                    break
+            # while True:
+            #     ringredient = input("Ingredient name: ")
+            #     runit = input("Unit of measurement (cup/tbsp/grams/etc): ")
+            #     rquantity = int(input("Unit amount: "))
+            #     il.add_ing(rname,ringredient,runit,rquantity)
+            #     if input("Add another ingredient? (y/n): ").lower() == "n":
+            #         break
                 
-            # Gather steps
-            count = 1
-            while True:
-                rstep = input(f"What is step {str(count)}? ")
-                count += 1
-                sl.add_steps(rname,rstep)
-                if input("Add another step? (y/n): ").lower() == "n":
-                    break
+            # # Gather steps
+            # count = 1
+            # while True:
+            #     rstep = input(f"What is step {str(count)}? ")
+            #     count += 1
+            #     sl.add_steps(rname,rstep)
+            #     if input("Add another step? (y/n): ").lower() == "n":
+            #         break
 
 
         elif selection == 5:
