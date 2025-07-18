@@ -115,25 +115,6 @@ while True:
                 rcategory = input("What category does the recipe belong to? ")
                 rl.add_recipe(recipe_name,rdescription,rcategory)
 
-            # Add recipe ingredients for the ingredients table
-
-            # while True:
-            #     ringredient = input("Ingredient name: ")
-            #     runit = input("Unit of measurement (cup/tbsp/grams/etc): ")
-            #     rquantity = int(input("Unit amount: "))
-            #     il.add_ing(rname,ringredient,runit,rquantity)
-            #     if input("Add another ingredient? (y/n): ").lower() == "n":
-            #         break
-                
-            # # Gather steps
-            # count = 1
-            # while True:
-            #     rstep = input(f"What is step {str(count)}? ")
-            #     count += 1
-            #     sl.add_steps(rname,rstep)
-            #     if input("Add another step? (y/n): ").lower() == "n":
-            #         break
-
 
         elif selection == 5:
 # Update a recipe
