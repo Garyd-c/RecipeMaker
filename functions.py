@@ -25,6 +25,9 @@ Recipes Class
     Reset: reset_database_recipe()
 
 Upload CSV Class
+    reset_or_create_db()
+    read_recipe_data()
+    save_to_database()
 """
 
 import db_base as db
