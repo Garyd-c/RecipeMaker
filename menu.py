@@ -74,16 +74,30 @@ while True:
     # View a full recipe
             rname = input("Which recipe would you like to see? ")
             print("")
+
+            # Recipe name
             print(rl.fetch_recipe(rname)[0][0].center(30," "))
             print("".center(30,"-"))
+
+            # Description
             print(rl.fetch_recipe(rname)[0][1])
+
+            # Category
             print("Category: " + rl.fetch_recipe(rname)[0][2])
+
+            # Print Ingredients
+            # Title
             print("\n"+"Ingredients".center(30," "))
             print("".center(30,"-"))
+            # Ingredients
             for ingredient in il.fetch_ing(rname,None):
                 print(str(ingredient[4])+" "+ingredient[3]+": "+ingredient[2])
+
+            # Print steps
+            # Title
             print("\n" + "Steps".center(30," "))
             print("".center(30,"-"))
+            # Steps
             for step in sl.fetch_steps(rname,None):
                 print(str(step[1])+": "+step[2])
 
