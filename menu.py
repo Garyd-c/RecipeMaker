@@ -101,7 +101,7 @@ while True:
 
             # Add recipe to the recipes table
 
-            rname = input("What is the name of the recipe? ")
+            recipe_name = input("What is the name of the recipe? ")
 
             # Verify recipe is in recipes
             rlist = list()
@@ -113,7 +113,7 @@ while True:
             else:
                 rdescription = input("Describe your recipe: ")
                 rcategory = input("What category does the recipe belong to? ")
-                rl.add_recipe(rname,rdescription,rcategory)
+                rl.add_recipe(recipe_name,rdescription,rcategory)
 
             # Add recipe ingredients for the ingredients table
 
