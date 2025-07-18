@@ -351,7 +351,7 @@ class RecipeList(db.DBbase):
             # Go through each ingredient to add units and measurements
             for ingredient in ingredients:
                 unit = input("What is the unit of measurement for " + ingredient + "? ")
-                quantity = float(input("How many {} of {}?".format(unit, ingredient)))
+                quantity = float(input("How many units of {}? ".format(ingredient)))
                 ingredient_list.add_ing(recipe_name, ingredient, unit, quantity)
 
             # Add steps for the recipe and ingredients added
